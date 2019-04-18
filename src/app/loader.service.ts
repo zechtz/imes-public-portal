@@ -5,6 +5,7 @@ import {LoaderState} from './loader-state';
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoaderService {
   private loaderSubject = new Subject<LoaderState>();
   loaderState = this.loaderSubject.asObservable();

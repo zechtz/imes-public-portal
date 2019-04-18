@@ -1,16 +1,64 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
   <meta charset="utf-8">
   <title>ImesDashboard</title>
   <base href="/">
+  <link rel="stylesheet" type="text/css" href="http://dhis2-cdn.org/v215/ext/resources/css/ext-plugin-gray.css" />
+  <script src="https://dhis2-cdn.org/v215/ext/ext-all.js"></script>
+  <script src="https://dhis2-cdn.org/v215/plugin/table.js"></script>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    var base = "https://play.dhis2.org/demo";
+
+    // Login - if OK, call the setLinks function
+
+    Ext.onReady( function() {
+      Ext.Ajax.request({
+        url: base + "dhis-web-commons-security/login.action",
+        method: "POST",
+        params: { j_username: "portal", j_password: "Portal123" },
+        success: setLinks
+      });
+    });
+
+    function setLinks() {
+
+      // Referring to an existing table through the id parameter, render to "table1" div
+
+      DHIS.getTable({ url: base, el: "table1", id: "R0DVGvXDUNP" });
+
+      // Full table configuration, render to "table2" div
+
+      DHIS.getTable({
+        url: base,
+        el: "table2",
+        columns: [
+          {dimension: "de", items: [{id: "YtbsuPPo010"}, {id: "l6byfWFUGaP"}]}
+        ],
+        rows: [
+          {dimension: "pe", items: [{id: "LAST_12_MONTHS"}]}
+        ],
+        filters: [
+          {dimension: "ou", items: [{id: "USER_ORGUNIT"}]}
+        ],
+        // All following options are optional
+        showTotals: false,
+        showSubTotals: false,
+        hideEmptyRows: true,
+        showHierarchy: true,
+        displayDensity: "comfortable",
+        fontSize: "large",
+        digitGroupSeparator: "comma",
+        legendSet: {id: "BtxOoQuLyg1"}
+      });
+    }
+  </script>
 </head>
+
 <body>
+  <div id="table1"></div>
+  <div id="table2"></div>
   <app-root></app-root>
 </body>
 </html>

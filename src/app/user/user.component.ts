@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {init} from 'd2';
+import { Component } from '@angular/core';
+import {init}        from 'd2';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector    : 'app-user',
+  templateUrl : './user.component.html',
+  styleUrls   : ['./user.component.css']
 })
-export class UserComponent implements OnInit {
 
-  api = 'http://127.0.0.1:8080/dhis/api/29';
+export class UserComponent {
+
+  private api : string = 'http://localhost:8085/api'
   items = null;
 
   constructor() {
@@ -19,8 +20,4 @@ export class UserComponent implements OnInit {
         });
     });
   }
-
-  ngOnInit() {
-  }
-
 }

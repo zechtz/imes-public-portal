@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {init} from 'd2';
+import { Component } from '@angular/core';
+import { init }      from 'd2';
 
 @Component({
-  selector: 'app-organisation-unit',
-  templateUrl: './organisation-unit.component.html',
-  styleUrls: ['./organisation-unit.component.css']
+  selector    : 'app-organisation-unit',
+  templateUrl : './organisation-unit.component.html',
+  styleUrls   : ['./organisation-unit.component.css']
 })
-export class OrganisationUnitComponent implements OnInit {
 
-  api = 'http://127.0.0.1:8080/dhis/api/29';
-  items = null;
+export class OrganisationUnitComponent {
+
+  private api : string = 'http://localhost:8085/api'
+  private items = [];
 
   constructor() {
     init({baseUrl: this.api}).then(d2 => {
@@ -20,9 +21,4 @@ export class OrganisationUnitComponent implements OnInit {
         });
     });
   }
-
-  ngOnInit() {
-
-  }
-
 }
