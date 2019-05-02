@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppSettings } from '../app.settings';
 import { init }      from 'd2';
 
 @Component({
@@ -9,7 +10,7 @@ import { init }      from 'd2';
 
 export class OrganisationUnitComponent {
 
-  private api : string = 'http://localhost:8085/api'
+  private api : string = AppSettings.baseUrl;
   private items = [];
 
   constructor() {
