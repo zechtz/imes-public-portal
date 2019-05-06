@@ -1,13 +1,21 @@
+'use strict'
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 import arrayFrom from 'd2-utilizr/lib/arrayFrom';
 import arraySort from 'd2-utilizr/lib/arraySort';
 import {init, config, getInstance} from 'd2';
 import arrayClean from 'd2-utilizr/lib/arrayClean';
+import { d2 } from 'd2';
 
 import { onError, getDashboardFields } from './index';
 import { arrayToIdMap } from './util';
-import { SPACER, isSpacerType, isTextType, emptyTextItemContent, } from './item.types';
+import { SPACER, isSpacerType, isTextType, emptyTextItemContent, getItemUrl } from './item.types';
 import { orArray, orObject } from './util';
 import { AppSettings } from '../app.settings';
+import { getListItemFields, getFavoriteFields } from './metadata';
 
 const token : string = btoa('Macho' + ':' + 'MkawaJohn1!');
 config.baseUrl = AppSettings.baseUrl;
@@ -26,9 +34,19 @@ config.schemas = [
 
 init(config);
 
-console.log('the init object', init);
-
+@Injectable()
 export class DashboardService {
+
+  private item;
+  private dimensionItems  = [];
+
+  constructor(private http : HttpClient) {}
+
+  getDimensionInfo(url : string): Observable<any[]> {
+    return this.http.get<any[]>(
+      url
+    );
+  }
 
   // Get "all" dashboards on startup
   getDashboards = () =>
@@ -52,7 +70,7 @@ export class DashboardService {
         fields: arrayClean(
           getDashboardFields({
             withItems: true,
-            withFavorite: { withDimensions: false },
+            withFavorite: { withDimensions: true },
           })
         ).join(','),
       }).then(response => {
@@ -83,7 +101,6 @@ export class DashboardService {
       .catch(onError);
   };
 
-
   setDashboards = dashboards => ({
     value: arrayToIdMap(this.getCustomDashboards(dashboards)),
   })
@@ -91,11 +108,6 @@ export class DashboardService {
   setDashboardItems = value => ({
     value,
   })
-
-  getDimensions = (item, type)  => {
-    console.log('item', item);
-    console.log('item type', type);
-  }
 
   getCustomDashboards = data => {
     const uiItems = items =>
@@ -144,14 +156,48 @@ export class DashboardService {
   }
 
   fetchItemsDimensions = dashboard => {
+    var url;
     dashboard.dashboardItems.forEach(item => {
-      switch (item.type) {
-        case 'CHART':
-          this.getDimensions(item, item.type);
-          break;
-        default:
-          return true;
-      }
+      getInstance().then(d2 => {
+        switch (item.type) {
+          case 'CHART':
+            this.getChart(item)
+            break;
+          case 'REPORT_TABLE':
+            this.getReportTable(item);
+            break;
+          default:
+            return true;
+        }
+      })
     })
+    console.log('the dimension items', this.dimensionItems);
   }
+
+  getChart = item =>
+    getInstance().then(d2 =>
+      d2.models.chart.get(item.chart.id, {
+        fields: [
+          '*', 'relative'
+        ].join(','),
+      }).then(response => {
+        console.log('the response', response);
+        this.dimensionItems.push(response);
+        return response;
+      })
+    ).catch(onError);
+
+  getReportTable = item =>
+    getInstance().then(d2 =>
+      d2.models.reportTable.get(item.chart.id, {
+        fields: [
+          '*',
+        ].join(','),
+      }).then(response => {
+        console.log('the response', response);
+        this.dimensionItems.push(response);
+        return response;
+      })
+    ).catch(onError);
 }
+

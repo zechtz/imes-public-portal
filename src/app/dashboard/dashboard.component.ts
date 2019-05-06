@@ -1,3 +1,4 @@
+'use strict'
 import { Component, OnInit } from '@angular/core';
 import { DashboardService }  from './dashboard.service';
 import { AppSettings }       from '../app.settings';

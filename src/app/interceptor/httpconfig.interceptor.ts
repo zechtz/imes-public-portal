@@ -21,7 +21,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
     // const token: string = localStorage.getItem('token');
 
-    const token : string = btoa('admin' + ':' + 'district');
+    const token : string = btoa('Macho' + ':' + 'MkawaJohn1!');
 
     if (token) {
       // request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
@@ -37,7 +37,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          console.log('the HttpInterceptor event--->>>', event);
+          //console.log('the HttpInterceptor event--->>>', event);
           // this.errorDialogService.openDialog(event);
         }
         return event;
