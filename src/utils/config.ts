@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 let path;
+
 switch (process.env.NODE_ENV) {
   case "test":
     path = `${__dirname}/../../.env`;
@@ -13,9 +14,10 @@ switch (process.env.NODE_ENV) {
   default:
     path = `${__dirname}/../../.env`;
 }
+
 dotenv.config({ path: path });
 
-export const username   = process.env.DHIS2_USERNAME;
-export const password   = process.env.DHIS2_PASSWORD;
-export const baseUrl    = process.env.DHIS2_BASE_URL;
-export const apiVersion = process.env.DHIS2_VERSION;
+export const username   = process.env.IMES_USERNAME;
+export const password   = process.env.IMES_PASSWORD;
+export const baseUrl    = process.env.IMES_BASE_URL;
+export const apiVersion = process.env.IMES_VERSION;
