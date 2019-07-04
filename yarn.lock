@@ -173,6 +173,13 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/flex-layout@7.0.0-beta.24":
+  version "7.0.0-beta.24"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-7.0.0-beta.24.tgz#ad2fd2b0ff5e49119a6e0bc2052256967ad749af"
+  integrity sha512-ll6sK0nLGxqI/f5+z4jbd+pve1QITzgehv2AuGvfSDgIjPMeqUDB5YZqQmIGM/dQRk/vIio5KCW5LQPJWzMMYQ==
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/forms@~7.2.0":
   version "7.2.10"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-7.2.10.tgz#ab4b5d702e24921b60f8e0e6df527602f99d05c4"
@@ -185,10 +192,10 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-7.2.10.tgz#5550fa689f1b35c78cfee65644cc00f0e7778325"
   integrity sha512-14mIHbouqD+JauLcNakhHSL7/YB63+w7NrwNJY/DHNT/IyppBUV2dneHHembGEUs3QBY+7oL8FfPCLDRT+K+OQ==
 
-"@angular/material@^7.3.5":
-  version "7.3.5"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-7.3.5.tgz#987df1e2a428660b15c860d05360449b008682b1"
-  integrity sha512-BkakYMuvicKIybp4LI1FKbC8a1jmmTo1ruNugy4PvQmjvj+kim7OMtAR/yCHycYq4cNQDq5LmnqLdclQEniqFw==
+"@angular/material@^7.3.7":
+  version "7.3.7"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-7.3.7.tgz#dcd95e6618ba6254c5880efee1aad349cf5b9140"
+  integrity sha512-Eq+7frkeNGkLOfEtmkmJgR+AgoWajOipXZWWfCSamNfpCcPof82DwvGOpAmgGni9FuN2XFQdqP5MoaffQzIvUA==
   dependencies:
     tslib "^1.7.1"
 

@@ -39,22 +39,6 @@ export class DashboardComponent implements OnInit {
         this.dashboard = dashboard;
       }).then(() => {
         this.results = this.dashboard ? this.fetchDataDimensions(this.dashboard) : []
-        let responses = this.fetchDataDimensions(this.dashboard)
-        /**
-         * iterate through responses and generate
-         * appropriate date that can be intepreted by fusion charts
-         *
-         */
-        responses.forEach(resp => {
-          metaData.chart = {
-            caption                : resp.metaInfo.name,
-            aligncaptionwithcanvas : "0",
-            plottooltext           : "<b>$dataValue</b> leads received",
-            theme                  : "fusion",
-            type                   : resp.metaInfo.type
-          }
-          console.log(resp);
-        })
       })
   }
 

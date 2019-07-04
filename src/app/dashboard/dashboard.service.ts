@@ -1,12 +1,12 @@
 'use strict'
 
-import _              from "lodash";
+import _              from 'lodash';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { arraySort }  from 'd2-utilizr/lib/arraySort';
+import { arraySort  } from 'd2-utilizr/lib/arraySort';
 import { arrayClean } from 'd2-utilizr/lib/arrayClean';
-import { arrayFrom }  from 'd2-utilizr/lib/array From ';
+import { arrayFrom  } from 'd2-utilizr/src/arrayFrom';
 
 import {
   onError,
@@ -228,7 +228,7 @@ export class DashboardService {
 
   getChartMetadataInfo = (item, container) => {
     let meta = {
-      "type": item.type,
+      "type": item.type.toLowerCase(),
       "caption": item.name,
       "numbersuffix": "K",
       "rotatelabels": "1",
@@ -253,6 +253,7 @@ export class DashboardService {
     getInstance().then(d2 => {
       d2.analytics.aggregate.get(request)
         .then(analyticsData => {
+          console.log('the data', analyticsData);
           analyticsData.chart = meta;
           analyticsData.chart.theme = "fusion";
           analyticsData.chart.aligncaptionwithcanvas = "0";
@@ -265,7 +266,6 @@ export class DashboardService {
   }
 
   getAnalytics = (analyticsData, container) => {
-
     /**
      * convert rows from an array of arrays to an array of objects
      * and re-assign to the data key of the analyticsData object

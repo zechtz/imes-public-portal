@@ -8,35 +8,52 @@
   </mat-select>
 </mat-form-field>
 <hr>
-
-<mat-grid-list cols="2" rowHeight="2:1">
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
   <fusioncharts
-      width="50%"
-      height="350"
-      type="Column2D"
-      dataFormat="JSON"
-      [dataSource]="results[0]">
+    width="48%"
+    height="350"
+    type="Column2D"
+    dataFormat="JSON"
+    [dataSource]="results[0]">
   </fusioncharts>
   <fusioncharts
-      width="50%"
-      height="350"
-      type="Column2D"
-      dataFormat="JSON"
-      [dataSource]="results[1]">
+    width="48%"
+    height="350"
+    type="Column2D"
+    dataFormat="JSON"
+    [dataSource]="results[1]">
+  </fusioncharts>
+</div>
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <fusioncharts
+    width="48%"
+    height="350"
+    type="Column2D"
+    dataFormat="JSON"
+    [dataSource]="results[2]">
   </fusioncharts>
   <fusioncharts
-      width="50%"
-      height="350"
-      type="Column2D"
-      dataFormat="JSON"
-      [dataSource]="results[2]">
+    width="48%"
+    height="350"
+    type="Column2D"
+    dataFormat="JSON"
+    [dataSource]="results[3]">
+  </fusioncharts>
+</div>
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <fusioncharts
+    width="48%"
+    height="350"
+    type="Column2D"
+    dataFormat="JSON"
+    [dataSource]="results[4]">
   </fusioncharts>
   <fusioncharts
-      width="50%"
-      height="350"
-      type="Column2D"
-      dataFormat="JSON"
-      [dataSource]="results[3]">
+    width="48%"
+    height="350"
+    type="line"
+    dataFormat="JSON"
+    [dataSource]="results[5]">
   </fusioncharts>
-</mat-grid-list>
-<pre>{{results | json}}</pre>
+</div>
+<!--<pre>{{results | json}}</pre>-->

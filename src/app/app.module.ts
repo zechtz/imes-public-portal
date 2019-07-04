@@ -1,10 +1,17 @@
-import { BrowserModule }   from '@angular/platform-browser';
-import { NgModule }        from '@angular/core';
-import { AppComponent }    from './app.component';
-import { LayoutComponent } from './layout/layout.component';
-import { LayoutModule }    from '@angular/cdk/layout';
+import { BrowserModule }    from '@angular/platform-browser';
+import { NgModule }         from '@angular/core';
+import { LayoutModule }     from '@angular/cdk/layout';
 import { MaterialModule }   from '../material-module';
-import { init as d2Init, config, getManifest, getUserSettings } from 'd2';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { AppComponent }     from './app.component';
+import { LayoutComponent }  from './layout/layout.component';
+
+import {
+  init as d2Init,
+  config,
+  getManifest,
+  getUserSettings
+} from 'd2';
 
 // Import angular-fusioncharts
 import { FusionChartsModule } from 'angular-fusioncharts';
@@ -71,6 +78,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     FusionChartsModule,
     MaterialModule,
+    FlexLayoutModule,
     RouterModule.forRoot(
       appRoutes,
       { useHash: true }
