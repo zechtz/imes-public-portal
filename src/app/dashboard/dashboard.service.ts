@@ -258,7 +258,6 @@ export class DashboardService {
           analyticsData.chart.theme = "fusion";
           analyticsData.chart.aligncaptionwithcanvas = "0";
           delete analyticsData.chart.org_units;
-          //console.log('the analytics data', analyticsData)
           this.getAnalytics(analyticsData, container);
         })
     })
@@ -271,6 +270,8 @@ export class DashboardService {
      * and re-assign to the data key of the analyticsData object
      */
     analyticsData.dataValues = analyticsData.rows.map(el => Object.assign({}, el))
+
+    // delete unwanted fiels from rows
     analyticsData.dataValues.map(el => {
       delete el[4]
       delete el[5]
@@ -278,6 +279,7 @@ export class DashboardService {
       delete el[7]
       delete el[8]
     })
+
     /**
      * convert rows from an object of objects to an array of objects
      * and re-assign to the metadataitems key of the analyticsData object
@@ -305,7 +307,6 @@ export class DashboardService {
       }
     })
 
-
     // delete unwanted keys
     delete analyticsData.rows;
     delete analyticsData.headers;
@@ -321,7 +322,8 @@ export class DashboardService {
     analyticsData.data =  _.reject(analyticsData.data, (el => el.dimensionType === 'DATA_X'));
     analyticsData.data =  _.reject(analyticsData.data, (el => el.name === 'default'));
 
-    //console.log('the data', analyticsData);
+    // push the analyticsData to the container and return
+    // the container
     container.push(analyticsData);
     return container;
   }
