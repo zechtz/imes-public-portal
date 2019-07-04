@@ -1,7 +1,6 @@
 'use strict'
 import { Component, OnInit } from '@angular/core';
 import { DashboardService }  from './dashboard.service';
-import { AppSettings }       from '../app.settings';
 
 @Component({
   selector    : 'app-dashboard',
@@ -10,7 +9,6 @@ import { AppSettings }       from '../app.settings';
 })
 
 export class DashboardComponent implements OnInit {
-  private baseUrl   = AppSettings.baseUrl;
   private items     = [];
   private dashboard = [];
   private results   = [];

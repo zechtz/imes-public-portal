@@ -14,7 +14,7 @@ import NotInterestedIcon from '@material-ui/icons/NotInterested';
 import { init as d2Init, config, getManifest, getUserSettings } from 'd2';
 
 import { getBaseUrl } from './util';
-import { AppSettings } from '../app.settings';
+import { apiVersion } from '../../config/config-env';
 
 // Item types
 export const REPORT_TABLE = 'REPORT_TABLE';
@@ -33,7 +33,7 @@ export const SPACER       = 'SPACER';
 // Domain types
 export const DOMAIN_TYPE_AGGREGATE = 'AGGREGATE';
 export const DOMAIN_TYPE_TRACKER   = 'TRACKER';
-const APP_VERSION = AppSettings.appVersion;
+const APP_VERSION = apiVersion;
 
 // Visualization types
 export const VISUALIZATION_TYPE_TABLE = 'TABLE';

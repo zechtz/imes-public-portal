@@ -28,10 +28,8 @@ import {
 } from '@angular/material';
 
 import { DashboardComponent }                from './dashboard/dashboard.component';
-import { OrganisationUnitComponent }         from './organisation-unit/organisation-unit.component';
 import { RouterModule, Routes}               from '@angular/router';
 import { BrowserAnimationsModule }           from '@angular/platform-browser/animations';
-import { UserComponent }                     from './user/user.component';
 import { LoaderComponent }                   from './loader/loader.component';
 import { HTTP_INTERCEPTORS }                 from '@angular/common/http';
 import { LoaderInterceptorService}           from './loader-interceptor-service.service';
@@ -50,16 +48,6 @@ const appRoutes: Routes = [
     component : DashboardComponent,
     data      : { title : 'Dashboard' }
   },
-  {
-    path      : 'organisation-units',
-    component : OrganisationUnitComponent,
-    data      : { title : 'Organisation Units'}
-  },
-  {
-    path      : 'users',
-    component : UserComponent,
-    data      : { title : 'Users' }
-  },
 ];
 
 @NgModule({
@@ -67,8 +55,6 @@ const appRoutes: Routes = [
     AppComponent,
     LayoutComponent,
     DashboardComponent,
-    OrganisationUnitComponent,
-    UserComponent,
     LoaderComponent
   ],
   imports: [
