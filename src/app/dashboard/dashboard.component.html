@@ -7,3 +7,36 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+<hr>
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <fusioncharts
+      width="50%"
+      height="350"
+      type="Column2D"
+      dataFormat="JSON"
+      [dataSource]="results[0]">
+  </fusioncharts>
+  <fusioncharts
+      width="50%"
+      height="350"
+      type="Column2D"
+      dataFormat="JSON"
+      [dataSource]="results[1]">
+  </fusioncharts>
+  <fusioncharts
+      width="50%"
+      height="350"
+      type="Column2D"
+      dataFormat="JSON"
+      [dataSource]="results[2]">
+  </fusioncharts>
+  <fusioncharts
+      width="50%"
+      height="350"
+      type="Column2D"
+      dataFormat="JSON"
+      [dataSource]="results[3]">
+  </fusioncharts>
+</mat-grid-list>
+<pre>{{results | json}}</pre>
