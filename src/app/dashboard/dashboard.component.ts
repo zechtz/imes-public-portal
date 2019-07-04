@@ -27,6 +27,15 @@ export class DashboardComponent implements OnInit {
       .then(dashboards => {
         this.items = dashboards.toArray();
       })
+    this.loadFaroviteDashboards(event);
+  }
+
+  changeSelected(model) {
+    console.log('the model', model);
+  }
+
+  loadFaroviteDashboards(event) {
+    console.log('the event', event)
   }
 
   fetchDashboard = (model) => {
