@@ -1,26 +1,6 @@
-import { writeFile } from 'fs';
+import * as config from "../../.env";
 
-require('dotenv').config();
-
-const environment = process.env.ENVIRONMENT;
-
-let baseUrl;
-
-if (environment === 'production') {
-  baseUrl = process.env.PRODUCTION_BASE_URL;
-} else {
-  baseUrl = process.env.DHIS2_BASE_URL;
-}
-
-const targetPath = `../environments/environment.prod.ts`;
-const envConfigFile = `
-export const environment = {
-  production: true,
-  baseUrl: '${baseUrl}'
-};`
-
-writeFile(targetPath, envConfigFile, (err) => {
-  if (err) {
-    console.log(err);
-  }
-});
+export const username   = config.env.USERNAME;
+export const password   = config.env.PASSWORD;
+export const baseUrl    = config.env.BASE_URL;
+export const apiVersion = config.env.VERSION;
