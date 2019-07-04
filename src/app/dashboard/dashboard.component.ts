@@ -11,41 +11,96 @@ import { AppSettings }       from '../app.settings';
 
 export class DashboardComponent implements OnInit {
   private baseUrl   = AppSettings.baseUrl;
-  private items = [];
-  private dashboard;
+  private items     = [];
+  private dashboard = [];
+  private results   = [];
+  private metaData: Array<any> = [];
+  private data = null;
+  private meta = {};
 
   constructor(private dashboardService : DashboardService ) {
   }
 
   ngOnInit() {
-    this.dashboardService.getDashboards().then(dashboards => {
-      this.items = dashboards.toArray();
-      console.log(this.items);
-    })
+    this.dashboardService.getFavoriteDashboard('Macho');
+    this.dashboardService.getDashboards()
+      .then(dashboards => {
+        this.items = dashboards.toArray();
+      })
   }
 
-  fetchDashboard = (model) =>  {
+  fetchDashboard = (model) => {
+    let metaData = {
+      chart : {},
+      data  : []
+    }
     this.dashboardService.getDashboard(model.value)
       .then(dashboard => {
         this.dashboard = dashboard;
-      })
-      .then(() => {
-        this.fetchItemsDimensions(this.dashboard);
+      }).then(() => {
+        this.results = this.dashboard ? this.fetchDataDimensions(this.dashboard) : []
+        let responses = this.fetchDataDimensions(this.dashboard)
+        /**
+         * iterate through responses and generate
+         * appropriate date that can be intepreted by fusion charts
+         *
+         */
+        responses.forEach(resp => {
+          metaData.chart = {
+            caption                : resp.metaInfo.name,
+            aligncaptionwithcanvas : "0",
+            plottooltext           : "<b>$dataValue</b> leads received",
+            theme                  : "fusion",
+            type                   : resp.metaInfo.type
+          }
+          console.log(resp);
+        })
       })
   }
 
-  getFavoriteDashboard = (id)  => {
+  getFavoriteDashboard = (id)  =>
     this.dashboardService.getDashboard(id)
       .then(dashboard  => {
         this.dashboard = dashboard;
       })
+
+  selectionChanged = (event) => console.log('the selection changed', event.value);
+
+  fetchDataDimensions = (dashboard) => {
+    return this.dashboardService.fetchItemsDimensions(dashboard);
   }
 
-  selectionChanged(event) {
-    console.log('the selection changed', event.value);
-  }
 
-  fetchItemsDimensions(selectedDashboard) {
-    this.dashboardService.fetchItemsDimensions(selectedDashboard);
+  formatData = (results) => {
+    let responses = [];
+    let metaData = { chart: {}, data: [] };
+
+    console.log(this.results);
+
+    results.forEach(resp => {
+      console.log('we got here')
+      metaData.chart = {
+        caption                : resp.metaInfo.name,
+        aligncaptionwithcanvas : "0",
+        plottooltext           : "<b>$dataValue</b> leads received",
+        theme                  : "fusion",
+        type                   : resp.metaInfo.type
+      };
+
+      resp.metaDataItems.forEach(item => {
+        if (item.type === 'ORGANISATION_UNIT') {
+          let dataItem = resp.data.find(x => x[1] == item.uid)[3];
+          let object = {
+            name: item.name,
+            value: dataItem
+          }
+          metaData.data.push(object);
+        }
+      })
+
+      responses.push(metaData);
+      console.log('the responses', responses);
+    })
+    return responses;
   }
 }
