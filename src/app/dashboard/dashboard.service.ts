@@ -1,24 +1,55 @@
 'use strict'
 
+import _              from "lodash";
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { arraySort }  from 'd2-utilizr/lib/arraySort';
+import { arrayClean } from 'd2-utilizr/lib/arrayClean';
+import { arrayFrom }  from 'd2-utilizr/lib/array From ';
 
-import arrayFrom from 'd2-utilizr/lib/arrayFrom';
-import arraySort from 'd2-utilizr/lib/arraySort';
-import {init, config, getInstance} from 'd2';
-import arrayClean from 'd2-utilizr/lib/arrayClean';
-import { d2 } from 'd2';
+import {
+  onError,
+  getDashboardFields
+} from './index';
 
-import { onError, getDashboardFields } from './index';
-import { arrayToIdMap } from './util';
-import { SPACER, isSpacerType, isTextType, emptyTextItemContent, getItemUrl } from './item.types';
-import { orArray, orObject } from './util';
-import { AppSettings } from '../app.settings';
-import { getListItemFields, getFavoriteFields } from './metadata';
+import {
+  orArray,
+  orObject,
+  arrayToIdMap
+} from './util';
 
-const token : string = btoa('Macho' + ':' + 'MkawaJohn1!');
-config.baseUrl = AppSettings.baseUrl;
+import {
+  d2,
+  init,
+  config,
+  getInstance
+} from 'd2';
+
+import {
+  SPACER,
+  isSpacerType,
+  isTextType,
+  emptyTextItemContent,
+  getItemUrl
+} from './item.types';
+
+import {
+  getListItemFields,
+  getFavoriteFields,
+  getAxesFields
+} from './metadata';
+
+import {
+  username,
+  password,
+  baseUrl,
+  apiVersion
+} from '../../config/config-env';
+
+const token : string = btoa(username + ':' + password);
+config.baseUrl = baseUrl;
+
 config.headers = { Authorization:  'Basic ' + token };
 config.schemas = [
   'chart',
@@ -38,15 +69,18 @@ init(config);
 export class DashboardService {
 
   private item;
-  private dimensionItems  = [];
+  private dimensionItems: Array<any> = [];
+
+  private dxColumns = [];
+  private dxFilters = [];
+  private dxRows    = [];
+  private metaData  = [];
+  private result;
+  private resp;
 
   constructor(private http : HttpClient) {}
 
-  getDimensionInfo(url : string): Observable<any[]> {
-    return this.http.get<any[]>(
-      url
-    );
-  }
+  getDimensionInfo = (url : string): Observable<any[]> => this.http.get<any[]>(url);
 
   // Get "all" dashboards on startup
   getDashboards = () =>
@@ -67,12 +101,9 @@ export class DashboardService {
   getDashboard = id =>
     getInstance().then(d2 =>
       d2.models.dashboard.get(id, {
-        fields: arrayClean(
-          getDashboardFields({
-            withItems: true,
-            withFavorite: { withDimensions: true },
-          })
-        ).join(','),
+        fields: [
+          "*"
+        ]
       }).then(response => {
         return response;
       })
@@ -81,7 +112,6 @@ export class DashboardService {
   // Star dashboard
   apiStarDashboard = (id, isStarred) => {
     const url = `dashboards/${id}/favorite`;
-
     getInstance().then(d2 => {
       if (isStarred) {
         d2.Api.getApi().post(url);
@@ -92,13 +122,10 @@ export class DashboardService {
   };
 
   deleteDashboard = id => {
-    return getInstance()
-      .then(d2 => {
-        return d2.models.dashboards
-          .get(id)
-          .then(dashboard => dashboard.delete());
-      })
-      .catch(onError);
+    return getInstance().then(d2 => {
+      return d2.models.dashboards.get(id)
+        .then(dashboard => dashboard.delete());
+    }).catch(onError);
   };
 
   setDashboards = dashboards => ({
@@ -148,44 +175,45 @@ export class DashboardService {
     }));
   }
 
-  getFavoriteDashboard = username =>
+  getFavoriteDashboard = username => {
     localStorage.getItem(`dhis2.dashboard.current.${username}`) || undefined;
+  }
 
   saveFavoriteDashboard = (username, dashboardId) => {
     localStorage.setItem(`dhis2.dashboard.current.${username}`, dashboardId);
   }
 
-  fetchItemsDimensions = dashboard => {
-    var url;
+  fetchItemsDimensions = (dashboard) => {
+    let container = [];
     dashboard.dashboardItems.forEach(item => {
-      getInstance().then(d2 => {
-        switch (item.type) {
-          case 'CHART':
-            this.getChart(item)
-            break;
-          case 'REPORT_TABLE':
-            this.getReportTable(item);
-            break;
-          default:
-            return true;
-        }
-      })
+      switch (item.type) {
+        case 'CHART':
+          this.getChart(item, container);
+          break;
+        case 'REPORT_TABLE':
+          this.getReportTable(item);
+          break;
+        default:
+          return true;
+      }
     })
-    console.log('the dimension items', this.dimensionItems);
+    return container;
   }
 
-  getChart = item =>
+  getChart = (item, container) => {
+    this.dimensionItems = [];
     getInstance().then(d2 =>
       d2.models.chart.get(item.chart.id, {
         fields: [
-          '*', 'relative'
+          '*','interpretations',
+          getAxesFields({ withItems: true }).join(','),
         ].join(','),
+        paging: 'false',
       }).then(response => {
-        console.log('the response', response);
-        this.dimensionItems.push(response);
-        return response;
+        this.getChartMetadataInfo(response, container);
       })
-    ).catch(onError);
+    ).catch(onError)
+  }
 
   getReportTable = item =>
     getInstance().then(d2 =>
@@ -194,10 +222,131 @@ export class DashboardService {
           '*',
         ].join(','),
       }).then(response => {
-        console.log('the response', response);
-        this.dimensionItems.push(response);
         return response;
       })
     ).catch(onError);
-}
 
+  getChartMetadataInfo = (item, container) => {
+    let meta = {
+      "type": item.type,
+      "caption": item.name,
+      "numbersuffix": "K",
+      "rotatelabels": "1",
+      "org_units": item.rows[0].items
+    }
+
+    //console.log('the item', meta);
+
+    this.dxColumns = this.getColumnDimensions(item.columns);
+    this.dxRows    = this.getRowDimensions(item.rows);
+    this.dxFilters = this.getFilterDimasions(item.filters);
+    getInstance().then(d2 => {
+      const request = new d2.analytics.request()
+        .addDataDimension(this.dxColumns)
+        .addPeriodDimension(this.dxFilters)
+        .addOrgUnitDimension(this.dxRows[0]);
+      this.getAnalyticsDimensions(request, meta, container)
+    })
+  };
+
+  getAnalyticsDimensions = (request, meta, container) => {
+    getInstance().then(d2 => {
+      d2.analytics.aggregate.get(request)
+        .then(analyticsData => {
+          analyticsData.chart = meta;
+          analyticsData.chart.theme = "fusion";
+          analyticsData.chart.aligncaptionwithcanvas = "0";
+          delete analyticsData.chart.org_units;
+          //console.log('the analytics data', analyticsData)
+          this.getAnalytics(analyticsData, container);
+        })
+    })
+    return container;
+  }
+
+  getAnalytics = (analyticsData, container) => {
+
+    /**
+     * convert rows from an array of arrays to an array of objects
+     * and re-assign to the data key of the analyticsData object
+     */
+    analyticsData.dataValues = analyticsData.rows.map(el => Object.assign({}, el))
+    analyticsData.dataValues.map(el => {
+      delete el[4]
+      delete el[5]
+      delete el[6]
+      delete el[7]
+      delete el[8]
+    })
+    /**
+     * convert rows from an object of objects to an array of objects
+     * and re-assign to the metadataitems key of the analyticsData object
+     */
+    analyticsData.data = Object.values(analyticsData.metaData.items);
+
+    analyticsData.data.map(item => {
+      switch (item.dimensionItemType) {
+        case 'ORGANISATION_UNIT':
+          let val = analyticsData.dataValues.find(x => x[1] == item.uid);
+          item.label = item.name;
+          delete item.uid;
+          delete item.name;
+          delete item.code;
+          delete item.dimensionItemType;
+          delete item.totalAggregationType;
+          item.value = val[3];
+          break;
+        case 'PERIOD':
+          //console.log('the item', item);
+          break;
+        case 'DATA_ELEMENT':
+          analyticsData.chart.plottooltext = item.description;
+          break;
+      }
+    })
+
+
+    // delete unwanted keys
+    delete analyticsData.rows;
+    delete analyticsData.headers;
+    delete analyticsData.width;
+    delete analyticsData.height;
+    delete analyticsData.metaData;
+    delete analyticsData.dataValues;
+
+    analyticsData.data =  _.reject(analyticsData.data, (el => el.dimensionItemType === 'DATA_ELEMENT'));
+    analyticsData.data =  _.reject(analyticsData.data, (el => el.dimensionItemType === 'PERIOD'));
+    analyticsData.data =  _.reject(analyticsData.data, (el => el.dimensionType === 'ORGANISATION_UNIT'));
+    analyticsData.data =  _.reject(analyticsData.data, (el => el.dimensionType === 'PERIOD'));
+    analyticsData.data =  _.reject(analyticsData.data, (el => el.dimensionType === 'DATA_X'));
+    analyticsData.data =  _.reject(analyticsData.data, (el => el.name === 'default'));
+
+    //console.log('the data', analyticsData);
+    container.push(analyticsData);
+    return container;
+  }
+
+  getColumnDimensions(columns){
+    let dx = [];
+    columns.forEach((column)  => {
+      dx.push(column.items.map(el  => el.id));
+    })
+    return dx;
+  }
+
+  getRowDimensions(rows) {
+    let dx = [];
+    rows.forEach(row => {
+      dx.push(row.items.map(el => el.id));
+    })
+    return dx;
+  }
+
+  getFilterDimasions(filters) {
+    let dx = [];
+    filters.forEach(filter => {
+      dx.push(filter.items.map(el => el.id));
+    })
+    return dx;
+  }
+}
