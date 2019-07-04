@@ -3,20 +3,23 @@ import { NgModule }        from '@angular/core';
 import { AppComponent }    from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LayoutModule }    from '@angular/cdk/layout';
+import { MaterialModule }   from '../material-module';
 import { init as d2Init, config, getManifest, getUserSettings } from 'd2';
 
+// Import angular-fusioncharts
+import { FusionChartsModule } from 'angular-fusioncharts';
+
+// Import FusionCharts library and chart modules
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
 import {
-  MatToolbarModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
   MatTableModule,
   MatSelectModule,
-  MatDialogModule
+  MatDialogModule,
 } from '@angular/material';
 
-import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { DashboardComponent }                from './dashboard/dashboard.component';
 import { OrganisationUnitComponent }         from './organisation-unit/organisation-unit.component';
 import { RouterModule, Routes}               from '@angular/router';
@@ -31,6 +34,8 @@ import { DashboardService }                  from './dashboard/dashboard.service
 import { ErrorDialogComponent }  from './error-dialog/errordialog.component'
 import { ErrorDialogService }    from './error-dialog/errordialog.service'
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
+
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 
 const appRoutes: Routes = [
   {
@@ -62,22 +67,14 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatDialogModule,
-    MatSelectModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FusionChartsModule,
+    MaterialModule,
     RouterModule.forRoot(
       appRoutes,
       { useHash: true }
-    ),
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
+    )
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
