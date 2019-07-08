@@ -16,7 +16,7 @@ import {
 import {
   orArray,
   orObject,
-  arrayToIdMap
+  arrayToIdMap,
 } from './util';
 
 import {
@@ -185,10 +185,11 @@ export class DashboardService {
 
   fetchItemsDimensions = (dashboard) => {
     let container = [];
+    let results = [];
     dashboard.dashboardItems.forEach(item => {
       switch (item.type) {
         case 'CHART':
-          this.getChart(item, container);
+          results = this.getChart(item, container);
           break;
         case 'REPORT_TABLE':
           this.getReportTable(item);
@@ -197,10 +198,11 @@ export class DashboardService {
           return true;
       }
     })
-    return container;
+    return results;
   }
 
   getChart = (item, container) => {
+    let results = [];
     this.dimensionItems = [];
     getInstance().then(d2 =>
       d2.models.chart.get(item.chart.id, {
@@ -210,9 +212,10 @@ export class DashboardService {
         ].join(','),
         paging: 'false',
       }).then(response => {
-        this.getChartMetadataInfo(response, container);
+        this.getChartMetadataInfo(response, container, results);
       })
     ).catch(onError)
+    return results;
   }
 
   getReportTable = item =>
@@ -226,7 +229,7 @@ export class DashboardService {
       })
     ).catch(onError);
 
-  getChartMetadataInfo = (item, container) => {
+  getChartMetadataInfo = (item, container, results) => {
     let meta = {
       "type": item.type.toLowerCase(),
       "caption": item.name,
@@ -245,26 +248,26 @@ export class DashboardService {
         .addDataDimension(this.dxColumns)
         .addPeriodDimension(this.dxFilters)
         .addOrgUnitDimension(this.dxRows[0]);
-      this.getAnalyticsDimensions(request, meta, container)
+      this.getAnalyticsDimensions(request, meta, container, results)
     })
   };
 
-  getAnalyticsDimensions = (request, meta, container) => {
+  getAnalyticsDimensions = (request, meta, container, results) => {
     getInstance().then(d2 => {
       d2.analytics.aggregate.get(request)
         .then(analyticsData => {
-          console.log('the data', analyticsData);
+          //console.log('the data', analyticsData);
           analyticsData.chart = meta;
           analyticsData.chart.theme = "fusion";
           analyticsData.chart.aligncaptionwithcanvas = "0";
           delete analyticsData.chart.org_units;
-          this.getAnalytics(analyticsData, container);
+          this.getAnalytics(analyticsData, container, results);
         })
     })
-    return container;
+    return results;
   }
 
-  getAnalytics = (analyticsData, container) => {
+  getAnalytics = (analyticsData, container, results = []) => {
     /**
      * convert rows from an array of arrays to an array of objects
      * and re-assign to the data key of the analyticsData object
@@ -325,7 +328,15 @@ export class DashboardService {
     // push the analyticsData to the container and return
     // the container
     container.push(analyticsData);
-    return container;
+    let intervals = 2;
+
+    for(let i = 0; i < container.length; i += intervals) {
+      results.push({items: container.slice(i, i+intervals)})
+    }
+
+    console.log('the results', results);
+
+    return results;
   }
 
   getColumnDimensions(columns){
