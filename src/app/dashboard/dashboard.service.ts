@@ -11,13 +11,13 @@ import { arrayFrom  } from 'd2-utilizr/src/arrayFrom';
 import {
   onError,
   getDashboardFields
-} from './index';
+} from '../Helpers/index';
 
 import {
   orArray,
   orObject,
   arrayToIdMap,
-} from './util';
+} from '../Helpers/util';
 
 import {
   d2,
@@ -32,13 +32,13 @@ import {
   isTextType,
   emptyTextItemContent,
   getItemUrl
-} from './item.types';
+} from '../Helpers/item.types';
 
 import {
   getListItemFields,
   getFavoriteFields,
   getAxesFields
-} from './metadata';
+} from '../Helpers/metadata';
 
 import {
   username,
@@ -256,7 +256,6 @@ export class DashboardService {
     getInstance().then(d2 => {
       d2.analytics.aggregate.get(request)
         .then(analyticsData => {
-          //console.log('the data', analyticsData);
           analyticsData.chart = meta;
           analyticsData.chart.theme = "fusion";
           analyticsData.chart.aligncaptionwithcanvas = "0";
@@ -267,7 +266,7 @@ export class DashboardService {
     return results;
   }
 
-  getAnalytics = (analyticsData, container, results = []) => {
+  getAnalytics = async(analyticsData, container, results) => {
     /**
      * convert rows from an array of arrays to an array of objects
      * and re-assign to the data key of the analyticsData object
