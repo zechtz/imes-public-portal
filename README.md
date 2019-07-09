@@ -11,4 +11,5 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Connecting to DHIS2
 
-1. Change the file .env.sample.ts with appropriate settings
+1. Rename the file .env.sample.ts  to .env.ts
+2. Update the file .env.ts with appropriate settings
