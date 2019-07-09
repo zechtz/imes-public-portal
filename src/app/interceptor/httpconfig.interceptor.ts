@@ -11,6 +11,7 @@ import {
 
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { username, password } from '../../config/config-env'
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
@@ -21,7 +22,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
     // const token: string = localStorage.getItem('token');
 
-    const token : string = btoa('Macho' + ':' + 'MkawaJohn1!');
+    const token : string = btoa(username + ':' + password);
 
     if (token) {
       // request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });

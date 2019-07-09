@@ -32,11 +32,21 @@ export class DashboardComponent implements OnInit {
     console.log('the model', model);
   }
 
-  loadFaroviteDashboards(event) {
+  loadFaroviteDashboards(id) {
     console.log('the event', event)
+
+    this.dashboardService.getDashboard(id)
+      .then(dashboard => {
+        this.dashboard = dashboard;
+      }).then(() => {
+        this.results = this.dashboard ? this.fetchDataDimensions(this.dashboard) : []
+        //console.log('the results', results);
+        //this.results = this.modifyData(results, container);
+      })
   }
 
   fetchDashboard = (model) => {
+    console.log('the selected dashboard', model);
     let container = [];
     let metaData = {
       chart : {},
