@@ -276,7 +276,7 @@ export class DashboardService {
     return results;
   }
 
-  getAnalytics = async(analyticsData, container, results) => {
+  getAnalytics = async(analyticsData, container, results) : Promise<any> => {
     /**
      * convert rows from an array of arrays to an array of objects
      * and re-assign to the data key of the analyticsData object
