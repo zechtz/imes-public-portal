@@ -9,13 +9,8 @@ import { DashboardService }  from './dashboard.service';
 })
 
 export class DashboardComponent implements OnInit {
-  private items     = [];
-  private dashboard = [];
-  private results   = [];
-  private favorites = null;
-  private metaData: Array<any> = [];
-  private data = null;
-  private meta = {};
+  private items   = [];
+  private results = [];
 
   constructor(private dashboardService : DashboardService ) {
   }
@@ -39,20 +34,14 @@ export class DashboardComponent implements OnInit {
   loadFaroviteDashboards(dashboard) {
     this.dashboardService.getDashboard(dashboard.id)
       .then(dashboard => {
-        this.dashboard = dashboard;
-      }).then(() => {
-        this.results = this.dashboard ? this.fetchDataDimensions(this.dashboard) : []
+        this.results = this.fetchDataDimensions(dashboard)
       })
   }
 
   fetchDashboard = (model) => {
     this.dashboardService.getDashboard(model.value)
       .then(dashboard => {
-        this.dashboard = dashboard;
-      }).then(() => {
-        this.results = this.dashboard ? this.fetchDataDimensions(this.dashboard) : []
-        //console.log('the results', results);
-        //this.results = this.modifyData(results, container);
+        this.results = this.fetchDataDimensions(dashboard)
       })
   }
 
@@ -70,7 +59,7 @@ export class DashboardComponent implements OnInit {
   getFavoriteDashboard = (id)  =>
     this.dashboardService.getDashboard(id)
       .then(dashboard  => {
-        this.dashboard = dashboard;
+        this.results = this.fetchDataDimensions(dashboard)
       })
 
   selectionChanged = (event) => console.log('the selection changed', event.value);

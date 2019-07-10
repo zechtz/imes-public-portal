@@ -8,16 +8,12 @@ import { arraySort  } from 'd2-utilizr/lib/arraySort';
 import { arrayClean } from 'd2-utilizr/lib/arrayClean';
 import { arrayFrom  } from 'd2-utilizr/src/arrayFrom';
 
+import { getAxesFields } from '../Helpers/metadata';
+
 import {
   onError,
   getDashboardFields
 } from '../Helpers/index';
-
-import {
-  orArray,
-  orObject,
-  arrayToIdMap,
-} from '../Helpers/util';
 
 import {
   d2,
@@ -25,20 +21,6 @@ import {
   config,
   getInstance
 } from 'd2';
-
-import {
-  SPACER,
-  isSpacerType,
-  isTextType,
-  emptyTextItemContent,
-  getItemUrl
-} from '../Helpers/item.types';
-
-import {
-  getListItemFields,
-  getFavoriteFields,
-  getAxesFields
-} from '../Helpers/metadata';
 
 import {
   username,
@@ -68,19 +50,9 @@ init(config);
 @Injectable()
 export class DashboardService {
 
-  private item;
-  private dimensionItems: Array<any> = [];
-
   private dxColumns = [];
   private dxFilters = [];
   private dxRows    = [];
-  private metaData  = [];
-  private result;
-  private resp;
-
-  constructor(private http : HttpClient) {}
-
-  getDimensionInfo = (url : string): Observable<any[]> => this.http.get<any[]>(url);
 
   // Get "all" dashboards on startup
   getDashboards = () =>
@@ -109,72 +81,6 @@ export class DashboardService {
       })
     ).catch(onError);
 
-  // Star dashboard
-  apiStarDashboard = (id, isStarred) => {
-    const url = `dashboards/${id}/favorite`;
-    getInstance().then(d2 => {
-      if (isStarred) {
-        d2.Api.getApi().post(url);
-      } else {
-        d2.Api.getApi().delete(url);
-      }
-    });
-  };
-
-  deleteDashboard = id => {
-    return getInstance().then(d2 => {
-      return d2.models.dashboards.get(id)
-        .then(dashboard => dashboard.delete());
-    }).catch(onError);
-  };
-
-  setDashboards = dashboards => ({
-    value: arrayToIdMap(this.getCustomDashboards(dashboards)),
-  })
-
-  setDashboardItems = value => ({
-    value,
-  })
-
-  getCustomDashboards = data => {
-    const uiItems = items =>
-      items.map(item => {
-        const type = isSpacerType(item) ? SPACER : item.type;
-        const text = isTextType(item)
-          ? item.text === emptyTextItemContent
-          ? ''
-          : item.text
-          : null;
-
-        return {
-          ...item,
-          ...(text !== null ? { text } : {}),
-          type,
-        };
-      });
-
-    return arrayFrom(data).map((d, index) => ({
-      id: d.id,
-      name: d.name,
-      displayName: d.displayName,
-      description: d.description,
-      displayDescription: d.displayDescription,
-      starred: d.favorite,
-      owner: d.user.name,
-      created: d.created
-      .split('T')
-      .join(' ')
-      .substr(0, 16),
-      lastUpdated: d.lastUpdated
-      .split('T')
-      .join(' ')
-      .substr(0, 16),
-      access: d.access,
-      numberOfItems: orArray(d.dashboardItems).length,
-      dashboardItems: uiItems(d.dashboardItems),
-    }));
-  }
-
   getFavoriteDashboard = (): Promise<any> => {
     const url = `${baseUrl}/${apiVersion}/dataStatistics/favorites`;
     let results = [];
@@ -187,10 +93,6 @@ export class DashboardService {
       const api = d2.Api.getApi();
       return api.get(url, params).then(response => response);
     })
-  }
-
-  saveFavoriteDashboard = (username, dashboardId) => {
-    localStorage.setItem(`dhis2.dashboard.current.${username}`, dashboardId);
   }
 
   fetchItemsDimensions = (dashboard) => {
@@ -213,7 +115,6 @@ export class DashboardService {
 
   getChart = (item, container) => {
     let results = [];
-    this.dimensionItems = [];
     getInstance().then(d2 =>
       d2.models.chart.get(item.chart.id, {
         fields: [
@@ -342,8 +243,6 @@ export class DashboardService {
     for(let i = 0; i < container.length; i += intervals) {
       results.push({items: container.slice(i, i+intervals)})
     }
-
-    console.log('the results', results);
 
     return results;
   }
