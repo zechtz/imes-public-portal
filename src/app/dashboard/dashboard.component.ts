@@ -59,7 +59,6 @@ export class DashboardComponent implements OnInit {
   modifyData = (data, container) => {
 
     //let dat = []
-
     //let k = 2;
 
     //for (let i = 0; i < dat.length; i += k) {
