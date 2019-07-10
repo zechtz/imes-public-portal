@@ -20,16 +20,14 @@
 <div class="container"
      fxLayout="row"
      fxLayout.xs="column"
-     column-count:2
-     fxLayoutWrap
      *ngFor="let row of results"
-     fxLayoutGap="0.5%"
-     fxLayoutAlign="center">
+     fxLayoutGap="1%"
+     fxLayoutAlign="start center">
   <fusioncharts
-    width="45%"
+    width="48%"
     *ngFor="let data of row?.items"
     height="450"
-    type="Column2D"
+    type="{{data.chart.type}}"
     dataFormat="JSON"
     [dataSource]="data">
   </fusioncharts>

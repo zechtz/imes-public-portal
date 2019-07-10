@@ -84,3 +84,14 @@ export const asyncForEach = async(array, callback) => {
 }
 
 export const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
+
+export const translateChartType = (type) => {
+  switch (type.toLowerCase()) {
+    case 'bar':
+      return 'Column2D';
+    case 'line':
+      return 'line';
+    default:
+      return 'Column2D';
+  }
+}

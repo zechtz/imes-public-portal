@@ -67,37 +67,4 @@ export class DashboardComponent implements OnInit {
   fetchDataDimensions = (dashboard) => {
     return this.dashboardService.fetchItemsDimensions(dashboard);
   }
-
-  formatData = (results) => {
-    let responses = [];
-    let metaData = { chart: {}, data: [] };
-
-    console.log(this.results);
-
-    results.forEach(resp => {
-      console.log('we got here')
-      metaData.chart = {
-        caption                : resp.metaInfo.name,
-        aligncaptionwithcanvas : "0",
-        plottooltext           : "<b>$dataValue</b> leads received",
-        theme                  : "fusion",
-        type                   : resp.metaInfo.type
-      };
-
-      resp.metaDataItems.forEach(item => {
-        if (item.type === 'ORGANISATION_UNIT') {
-          let dataItem = resp.data.find(x => x[1] == item.uid)[3];
-          let object = {
-            name: item.name,
-            value: dataItem
-          }
-          metaData.data.push(object);
-        }
-      })
-
-      responses.push(metaData);
-      console.log('the responses', responses);
-    })
-    return responses;
-  }
 }

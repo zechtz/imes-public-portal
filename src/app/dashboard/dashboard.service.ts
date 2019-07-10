@@ -8,7 +8,8 @@ import { arraySort  } from 'd2-utilizr/lib/arraySort';
 import { arrayClean } from 'd2-utilizr/lib/arrayClean';
 import { arrayFrom  } from 'd2-utilizr/src/arrayFrom';
 
-import { getAxesFields } from '../Helpers/metadata';
+import { getAxesFields }      from '../Helpers/metadata';
+import { translateChartType } from '../Helpers/util';
 
 import {
   onError,
@@ -29,7 +30,13 @@ import {
   apiVersion
 } from '../../config/config-env';
 
+/**
+ * base 64 encode username and password
+ * as token
+ */
 const token : string = btoa(username + ':' + password);
+
+// set the base url
 config.baseUrl = baseUrl;
 
 config.headers = { Authorization:  'Basic ' + token };
@@ -83,7 +90,6 @@ export class DashboardService {
 
   getFavoriteDashboard = (): Promise<any> => {
     const url = `${baseUrl}/${apiVersion}/dataStatistics/favorites`;
-    let results = [];
 
     let params = {
       eventType : 'DASHBOARD_VIEW'
@@ -96,8 +102,10 @@ export class DashboardService {
   }
 
   fetchItemsDimensions = (dashboard) => {
+
     let container = [];
-    let results = [];
+    let results   = [];
+
     dashboard.dashboardItems.forEach(item => {
       switch (item.type) {
         case 'CHART':
@@ -142,14 +150,15 @@ export class DashboardService {
 
   getChartMetadataInfo = (item, container, results) => {
     let meta = {
-      "type": item.type.toLowerCase(),
-      "caption": item.name,
-      "numbersuffix": "K",
-      "rotatelabels": "1",
-      "org_units": item.rows[0].items
-    }
 
-    //console.log('the item', meta);
+      "type"         : translateChartType(item.type),
+      "caption"      : item.name,
+      "numbersuffix" : "K",
+      "rotatelabels" : "1",
+      "labelDisplay" : "auto",
+      "showLegend"   : "1",
+      "org_units"    : item.rows[0].items
+    }
 
     this.dxColumns = this.getColumnDimensions(item.columns);
     this.dxRows    = this.getRowDimensions(item.rows);
@@ -210,6 +219,7 @@ export class DashboardService {
           delete item.dimensionItemType;
           delete item.totalAggregationType;
           item.value = val[3];
+          item.color = "#a9be3b";
           break;
         case 'PERIOD':
           //console.log('the item', item);
