@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   private items     = [];
   private dashboard = [];
   private results   = [];
+  private favorites = null;
   private metaData: Array<any> = [];
   private data = null;
   private meta = {};
@@ -20,28 +21,31 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dashboardService.getFavoriteDashboard('Macho');
+    this.dashboardService.getFavoriteDashboard()
+    .then(response => {
+      this.loadFaroviteDashboards(response[0]);
+    })
+
     this.dashboardService.getDashboards()
       .then(dashboards => {
         this.items = dashboards.toArray();
       })
-    this.loadFaroviteDashboards(event);
   }
 
   changeSelected(model) {
     console.log('the model', model);
   }
 
-  loadFaroviteDashboards(event) {
-    console.log('the event', event)
+  loadFaroviteDashboards(dashboard) {
+    this.dashboardService.getDashboard(dashboard.id)
+      .then(dashboard => {
+        this.dashboard = dashboard;
+      }).then(() => {
+        this.results = this.dashboard ? this.fetchDataDimensions(this.dashboard) : []
+      })
   }
 
   fetchDashboard = (model) => {
-    let container = [];
-    let metaData = {
-      chart : {},
-      data  : []
-    }
     this.dashboardService.getDashboard(model.value)
       .then(dashboard => {
         this.dashboard = dashboard;

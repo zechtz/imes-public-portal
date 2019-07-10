@@ -175,8 +175,18 @@ export class DashboardService {
     }));
   }
 
-  getFavoriteDashboard = username => {
-    localStorage.getItem(`dhis2.dashboard.current.${username}`) || undefined;
+  getFavoriteDashboard = (): Promise<any> => {
+    const url = `${baseUrl}/${apiVersion}/dataStatistics/favorites`;
+    let results = [];
+
+    let params = {
+      eventType : 'DASHBOARD_VIEW'
+    }
+
+    return getInstance().then(d2 => {
+      const api = d2.Api.getApi();
+      return api.get(url, params).then(response => response);
+    })
   }
 
   saveFavoriteDashboard = (username, dashboardId) => {
