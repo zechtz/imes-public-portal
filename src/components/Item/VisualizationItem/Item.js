@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import LaunchIcon from '@material-ui/icons/Launch';
 import ChartPlugin from '@dhis2/data-visualizer-plugin';
 
 import i18n from '@dhis2/d2-i18n';
@@ -233,10 +232,7 @@ export class Item extends Component {
         <span className={classes.title} title={itemName}>
           {itemName}
         </span>
-        {!editMode && this.pluginIsAvailable() ? (
-          <LaunchIcon className={classes.icon} />
-        ) : null}
-          </div>
+      </div>
     );
   };
 
