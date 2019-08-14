@@ -3,21 +3,21 @@
 // Inspiration: https://github.com/alexreardon/memoize-one
 
 const memoizeOne = fn => {
-    let lastArgs = undefined;
-    let lastValue = undefined;
+  let lastArgs = undefined;
+  let lastValue = undefined;
 
-    return (...args) => {
-        if (
-            lastArgs &&
-            args.length === lastArgs.length &&
-            args.every((arg, i) => arg === lastArgs[i])
-        ) {
-            return lastValue;
-        }
-        lastArgs = args;
-        lastValue = fn(...args);
-        return lastValue;
-    };
+  return (...args) => {
+    if (
+    lastArgs &&
+      args.length === lastArgs.length &&
+      args.every((arg, i) => arg === lastArgs[i])
+  ) {
+      return lastValue;
+    }
+    lastArgs = args;
+    lastValue = fn(...args);
+    return lastValue;
+  };
 };
 
 export default memoizeOne;

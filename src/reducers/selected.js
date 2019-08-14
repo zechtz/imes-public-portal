@@ -18,45 +18,45 @@ export const DEFAULT_STATE_SELECTED_SHOWDESCRIPTION = false;
  * @param {Object} action The action to be evaluated
  */
 const id = (state = DEFAULT_STATE_SELECTED_ID, action) => {
-    switch (action.type) {
-        case SET_SELECTED_ID:
-            return validateReducer(action.value, DEFAULT_STATE_SELECTED_ID);
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case SET_SELECTED_ID:
+      return validateReducer(action.value, DEFAULT_STATE_SELECTED_ID);
+    default:
+      return state;
+  }
 };
 
 const isLoading = (state = DEFAULT_STATE_SELECTED_ISLOADING, action) => {
-    switch (action.type) {
-        case SET_SELECTED_ISLOADING:
-            return validateReducer(
-                action.value,
-                DEFAULT_STATE_SELECTED_ISLOADING
-            );
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case SET_SELECTED_ISLOADING:
+      return validateReducer(
+        action.value,
+        DEFAULT_STATE_SELECTED_ISLOADING
+      );
+    default:
+      return state;
+  }
 };
 
 const showDescription = (
-    state = DEFAULT_STATE_SELECTED_SHOWDESCRIPTION,
-    action
+  state = DEFAULT_STATE_SELECTED_SHOWDESCRIPTION,
+  action
 ) => {
-    switch (action.type) {
-        case SET_SELECTED_SHOWDESCRIPTION:
-            return validateReducer(
-                action.value,
-                DEFAULT_STATE_SELECTED_SHOWDESCRIPTION
-            );
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case SET_SELECTED_SHOWDESCRIPTION:
+      return validateReducer(
+        action.value,
+        DEFAULT_STATE_SELECTED_SHOWDESCRIPTION
+      );
+    default:
+      return state;
+  }
 };
 
 export default combineReducers({
-    id,
-    isLoading,
-    showDescription,
+  id,
+  isLoading,
+  showDescription,
 });
 
 // Selectors
@@ -68,4 +68,4 @@ export const sGetSelectedId = state => sGetSelectedRoot(state).id;
 export const sGetSelectedIsLoading = state => sGetSelectedRoot(state).isLoading;
 
 export const sGetSelectedShowDescription = state =>
-    sGetSelectedRoot(state).showDescription;
+  sGetSelectedRoot(state).showDescription;
