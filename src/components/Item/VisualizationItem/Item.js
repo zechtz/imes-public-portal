@@ -18,7 +18,7 @@ import {
   acReceivedVisualization,
   acReceivedActiveVisualization,
 } from '../../../actions/selected';
-import { CHART, MAP, itemTypeMap } from '../../../modules/itemTypes';
+import { CHART, MAP } from '../../../modules/itemTypes';
 import { colors } from '../../../modules/colors';
 import memoizeOne from '../../../modules/memoizeOne';
 import { getVisualizationConfig } from './plugin';
@@ -224,7 +224,7 @@ export class Item extends Component {
     );
 
   getTitle = () => {
-    const { item, editMode, classes } = this.props;
+    const { item, classes } = this.props;
     const itemName = pluginManager.getName(item);
 
     return (
