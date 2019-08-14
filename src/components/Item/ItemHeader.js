@@ -7,7 +7,7 @@ const style = {
 }
 
 const ItemHeader = props => {
-  const { title, actionButtons, editMode } = props;
+  const { title } = props;
 
   return (
     <div className="dashboard-item-header">

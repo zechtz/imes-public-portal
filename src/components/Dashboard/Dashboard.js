@@ -5,8 +5,6 @@ import { tSelectDashboard } from '../../actions/dashboards';
 import { sDashboardsIsFetching } from '../../reducers/dashboards';
 import { EDIT, NEW } from './dashboardModes';
 import ViewDashboard from './ViewDashboard';
-import EditDashboard from './EditDashboard';
-import NewDashboard from './NewDashboard';
 
 class Dashboard extends Component {
   setDashboard = () => {

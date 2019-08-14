@@ -32,6 +32,7 @@ const configI18n = userSettings => {
 };
 
 const init = async () => {
+  console.log(process.env);
   const manifest = await getManifest('./manifest.webapp');
 
   // log app info
@@ -41,26 +42,27 @@ const init = async () => {
         }`
   );
 
+  const TOKEN  = btoa(process.env.REACT_APP_IMES_USERNAME + ':' + process.env.REACT_APP_IMES_PASSWORD);
+  const AUTHORIZATION = `Basic ${TOKEN}`;
   const isProd = process.env.NODE_ENV === 'production';
 
   if (
   !isProd &&
-    (!process.env.REACT_APP_DHIS2_BASE_URL ||
-    !process.env.REACT_APP_DHIS2_AUTHORIZATION)
+    (!process.env.REACT_APP_IMES_BASE_URL ||
+    !AUTHORIZATION)
   ) {
     throw new Error(
-    'Missing env variables REACT_APP_DHIS2_BASE_URL and REACT_APP_DHIS2_AUTHORIZATION'
+    'Missing env variables REACT_APP_IMES_BASE_URL and AUTHORIZATION'
   );
   }
 
   // api config
   const baseUrl = isProd
     ? manifest.activities.dhis.href
-    : process.env.REACT_APP_DHIS2_BASE_URL;
-  const authorization = process.env.REACT_APP_DHIS2_AUTHORIZATION;
+    : process.env.REACT_APP_IMES_BASE_URL;
 
-  config.baseUrl = `${baseUrl}/api/${manifest.dhis2.apiVersion}`;
-  config.headers = isProd ? null : { Authorization: authorization };
+  config.baseUrl = `${baseUrl}/api/${process.env.REACT_APP_IMES_VERSION}`;
+  config.headers = isProd ? null : { Authorization: AUTHORIZATION };
   config.schemas = [
     'chart',
     'map',

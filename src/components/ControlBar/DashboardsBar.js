@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ControlBar from './ControlBar';
 import arraySort from 'd2-utilizr/lib/arraySort';
 
 import Chip from './DashboardItemChip';
-import AddCircleIcon from '../../icons/AddCircle';
-import Filter from './Filter';
 import ShowMoreButton from './ShowMoreButton';
 import {
   FIRST_ROW_PADDING_HEIGHT,
@@ -23,8 +21,6 @@ import { acSetControlBarUserRows } from '../../actions/controlBar';
 import { acSetFilterName } from '../../actions/dashboardsFilter';
 import { orObject, orArray } from '../../modules/util';
 import { apiPostControlBarRows } from '../../api/controlBar';
-
-import classes from './styles/DashboardsBar.module.css';
 
 export const MAX_ROW_COUNT = 10;
 
@@ -77,7 +73,7 @@ export class DashboardsBar extends Component {
   };
 
   render() {
-    const { dashboards, name, selectedId, onChangeFilterName } = this.props;
+    const { dashboards,selectedId } = this.props;
 
     const rowCount = this.state.isMaxHeight
       ? MAX_ROW_COUNT

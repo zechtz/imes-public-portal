@@ -1,7 +1,7 @@
 {
     "name": "dashboard-app",
     "version": "31.0.1",
-    "description": "DHIS2 Dashboards app",
+    "description": "IMES Public Dashboard",
     "private": true,
     "license": "BSD-3-Clause",
     "dependencies": {
@@ -46,10 +46,10 @@
         "coverage": "npm test -- --coverage",
         "prebuild": "rm -rf build && mkdir build && npm run manifest && npm run localize",
         "build": "PUBLIC_URL=. react-scripts build",
-        "build-netlify": "REACT_APP_DHIS2_BASE_URL=\"https://play.dhis2.org/dev\" npm run build",
+        "build-netlify": "BASE_URL=\"https://play.dhis2.org/dev\" npm run build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "manifest": "d2-manifest package.json ./public/manifest.webapp --manifest.activities.dhis.href=${REACT_APP_DHIS2_BASE_URL:=..}",
+        "manifest": "d2-manifest package.json ./public/manifest.webapp --manifest.activities.dhis.href=${BASE_URL:=..}",
         "extract-pot": "d2-i18n-extract -p src/ -o i18n/",
         "localize": "d2-i18n-generate -n dashboards-app -p ./i18n/ -o ./src/locales/"
     },
@@ -59,14 +59,14 @@
         }
     },
     "manifest.webapp": {
-        "name": "Dashboards app",
-        "description": "DHIS2 core dashboard",
+        "name": "IMES Dashboard",
+        "description": "IMES Public Dashboard App",
         "icons": {
             "48": "icon.png"
         },
         "developer": {
             "url": "",
-            "name": "DHIS2"
+            "name": "PS3"
         },
         "dhis2": {
             "apiVersion": "31"

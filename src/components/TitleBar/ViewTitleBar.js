@@ -2,17 +2,13 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
 import i18n from '@dhis2/d2-i18n';
 import SharingDialog from '@dhis2/d2-ui-sharing-dialog';
-import Star from '@material-ui/icons/Star';
-import StarBorder from '@material-ui/icons/StarBorder';
 
 import { orObject } from '../../modules/util';
 import { tStarDashboard } from '../../actions/dashboards';
 import { acSetSelectedShowDescription } from '../../actions/selected';
 import FilterSelector from '../ItemFilter/FilterSelector';
-import { Button } from '@dhis2/ui-core';
 import Info from './Info';
 import {
   sGetSelectedId,
@@ -77,8 +73,6 @@ class ViewTitleBar extends Component {
       access,
       style,
       showDescription,
-      starred,
-      onStarClick,
       onInfoClick,
       classes,
     } = this.props;
@@ -88,8 +82,6 @@ class ViewTitleBar extends Component {
       userSelect: 'text',
       top: '7px',
     });
-
-    const StarIcon = starred ? Star : StarBorder;
 
     return (
       <Fragment>
