@@ -1,0 +1,48 @@
+body {
+    background-color: #f4f6f8;
+}
+
+.app-wrapper {
+    font-family: Roboto;
+}
+
+.dashboard-header-bar {
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.dashboard-wrapper {
+    background-color: #f4f6f8;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* plugin TODO */
+
+table.pivot * {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    -o-user-select: none !important;
+    user-select: none !important;
+}
+
+/* temporary workaround for headerbar */
+.secondary-light-bg {
+    background-color: #48a999;
+}
+
+
+.mat-toolbar.mat-primary {
+  background: #276596 !important;
+}
+
+.mat-toolbar.mat-primary[_ngcontent-c1] {
+  position: fixed;
+}
+.mat-toolbar-row, .mat-toolbar-single-row {
+  padding: 0 16px 20px;
+}
