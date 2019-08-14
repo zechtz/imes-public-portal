@@ -234,15 +234,7 @@ export class Item extends Component {
           {itemName}
         </span>
         {!editMode && this.pluginIsAvailable() ? (
-          <a
-            href={pluginManager.getLink(this.props.item, this.d2)}
-            style={{ height: 16 }}
-            title={`View in ${
-                            itemTypeMap[this.props.item.type].appName
-                        } app`}
-          >
-              <LaunchIcon className={classes.icon} />
-            </a>
+          <LaunchIcon className={classes.icon} />
         ) : null}
           </div>
     );

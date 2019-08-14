@@ -8,57 +8,57 @@ import TextItem from './TextItem/Item';
 import AppItem from './AppItem/Item';
 import SpacerItem from './SpacerItem/Item';
 import {
-    APP,
-    REPORT_TABLE,
-    CHART,
-    MAP,
-    EVENT_CHART,
-    EVENT_REPORT,
-    MESSAGES,
-    REPORTS,
-    RESOURCES,
-    USERS,
-    TEXT,
-    SPACER,
+  APP,
+  REPORT_TABLE,
+  CHART,
+  MAP,
+  EVENT_CHART,
+  EVENT_REPORT,
+  MESSAGES,
+  REPORTS,
+  RESOURCES,
+  USERS,
+  TEXT,
+  SPACER,
 } from '../../modules/itemTypes';
 import { DEFAULT_STATE_ITEM_FILTERS } from '../../reducers/itemFilters';
 
 const getGridItem = type => {
-    switch (type) {
-        case REPORT_TABLE:
-        case CHART:
-        case MAP:
-        case EVENT_CHART:
-        case EVENT_REPORT:
-            return VisualizationItem;
-        case MESSAGES:
-            return MessagesItem;
-        case REPORTS:
-        case RESOURCES:
-        case USERS:
-            return ListItem;
-        case TEXT:
-            return TextItem;
-        case SPACER:
-            return SpacerItem;
-        case APP:
-            return AppItem;
-        default:
-            return NotSupportedItem;
-    }
+  switch (type) {
+    case REPORT_TABLE:
+    case CHART:
+    case MAP:
+    case EVENT_CHART:
+    case EVENT_REPORT:
+      return VisualizationItem;
+    case MESSAGES:
+      return MessagesItem;
+    case REPORTS:
+    case RESOURCES:
+    case USERS:
+      return ListItem;
+    case TEXT:
+      return TextItem;
+    case SPACER:
+      return SpacerItem;
+    case APP:
+      return AppItem;
+    default:
+      return NotSupportedItem;
+  }
 };
 
 export const Item = props => {
-    const GridItem = getGridItem(props.item.type);
+  const GridItem = getGridItem(props.item.type);
 
-    return (
-        <GridItem
-            item={props.item}
-            editMode={props.editMode}
-            itemFilters={
-                props.editMode ? DEFAULT_STATE_ITEM_FILTERS : props.itemFilters
-            }
-            onToggleItemExpanded={props.onToggleItemExpanded}
-        />
-    );
+  return (
+    <GridItem
+      item={props.item}
+      editMode={props.editMode}
+      itemFilters={
+        props.editMode ? DEFAULT_STATE_ITEM_FILTERS : props.itemFilters
+      }
+        onToggleItemExpanded={props.onToggleItemExpanded}
+      />
+  );
 };

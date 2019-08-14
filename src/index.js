@@ -32,7 +32,6 @@ const configI18n = userSettings => {
 };
 
 const init = async () => {
-  console.log(process.env);
   const manifest = await getManifest('./manifest.webapp');
 
   // log app info
