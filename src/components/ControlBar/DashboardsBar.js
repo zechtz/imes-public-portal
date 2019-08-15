@@ -5,6 +5,7 @@ import ControlBar from './ControlBar';
 import arraySort from 'd2-utilizr/lib/arraySort';
 
 import Chip from './DashboardItemChip';
+import Filter from './Filter';
 import ShowMoreButton from './ShowMoreButton';
 import {
   FIRST_ROW_PADDING_HEIGHT,
@@ -21,6 +22,8 @@ import { acSetControlBarUserRows } from '../../actions/controlBar';
 import { acSetFilterName } from '../../actions/dashboardsFilter';
 import { orObject, orArray } from '../../modules/util';
 import { apiPostControlBarRows } from '../../api/controlBar';
+
+import classes from './styles/DashboardsBar.module.css';
 
 export const MAX_ROW_COUNT = 10;
 
@@ -73,7 +76,7 @@ export class DashboardsBar extends Component {
   };
 
   render() {
-    const { dashboards,selectedId } = this.props;
+    const { dashboards, name, selectedId, onChangeFilterName } = this.props;
 
     const rowCount = this.state.isMaxHeight
       ? MAX_ROW_COUNT
@@ -92,23 +95,30 @@ export class DashboardsBar extends Component {
         onEndDrag={this.onEndDrag}
         editMode={false}
       >
-          <div style={contentWrapperStyle}>
-            {orArray(dashboards).map(dashboard => (
-              <Chip
-                key={dashboard.id}
-                label={dashboard.displayName}
-                starred={dashboard.starred}
-                dashboardId={dashboard.id}
-                selected={dashboard.id === selectedId}
-              />
-            ))}
-              </div>
-              <ShowMoreButton
-                onClick={this.onToggleMaxHeight}
-                isMaxHeight={this.state.isMaxHeight}
-                disabled={this.props.userRows === MAX_ROW_COUNT}
-              />
-                </ControlBar>
+        <div style={contentWrapperStyle}>
+          <div className={classes.leftControls}>
+            <Filter
+              name={name}
+              onChangeName={onChangeFilterName}
+              onKeypressEnter={this.onSelectDashboard}
+            />
+          </div>
+          {orArray(dashboards).map(dashboard => (
+            <Chip
+              key={dashboard.id}
+              label={dashboard.displayName}
+              starred={dashboard.starred}
+              dashboardId={dashboard.id}
+              selected={dashboard.id === selectedId}
+            />
+          ))}
+        </div>
+        <ShowMoreButton
+          onClick={this.onToggleMaxHeight}
+          isMaxHeight={this.state.isMaxHeight}
+          disabled={this.props.userRows === MAX_ROW_COUNT}
+        />
+      </ControlBar>
     );
   }
 }
