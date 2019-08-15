@@ -4,7 +4,7 @@ export const CONTROL_BAR_ROW_HEIGHT = 40;
 export const FIRST_ROW_PADDING_HEIGHT = 10;
 export const MIN_ROW_COUNT = 1;
 
-export const HEADERBAR_HEIGHT = 48;
+export const HEADERBAR_HEIGHT = 98;
 
 const CONTROL_BAR_OUTER_HEIGHT_DIFF =
     FIRST_ROW_PADDING_HEIGHT + SHOWMORE_BAR_HEIGHT - 2; // 2 pixel "adjustment"
