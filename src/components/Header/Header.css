@@ -1,11 +1,11 @@
 .imes-header-component {
-  background: #276596 !important;
+  background: url("../../images/banner.png") 50% 50% / contain repeat;
   padding: 0 16px 20px;
-  height: 98px;
+  height: 100px;
 }
 
 .imes-header-component h4 {
-  color: #fff;
+  color: #000;
   padding: 28px 0 0 0;
   font-weight: bold;
   font-size: 2em;
