@@ -49,7 +49,7 @@ const TextItem = props => {
     const textDivStyle = Object.assign({}, style.textField, style.textDiv);
     return (
       <div className="dashboard-item-content" style={style.container}>
-        <RichTextParser style={textDivStyle}>{text}</RichTextParser>
+      <RichTextParser style={textDivStyle}>{text}</RichTextParser>
       </div>
     );
   };
@@ -57,20 +57,20 @@ const TextItem = props => {
   const editItem = () => {
     return (
       <Fragment>
-        <ItemHeader title={i18n.t('Text item')} />
-        <Line />
-        <div className="dashboard-item-content">
-          <RichTextEditor onEdit={onChangeText}>
-            <Input
-              value={text}
-              multiline
-              fullWidth
-              style={style.textField}
-              placeholder={i18n.t('Add text here')}
-              onChange={onChangeText} />
-            </RichTextEditor>
-          </div>
-        </Fragment>
+      <ItemHeader title={i18n.t('Text item')} />
+      <Line />
+      <div className="dashboard-item-content">
+      <RichTextEditor onEdit={onChangeText}>
+      <Input
+      value={text}
+      multiline
+      fullWidth
+      style={style.textField}
+      placeholder={i18n.t('Add text here')}
+      onChange={onChangeText} />
+      </RichTextEditor>
+      </div>
+      </Fragment>
     );
   };
 

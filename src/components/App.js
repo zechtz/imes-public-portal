@@ -46,31 +46,31 @@ export class App extends Component {
               render={props => (
                 <Dashboard {...props} mode={VIEW} />
               )}
-              />
-                  <Route
-                    exact
-                    path="/new"
-                    render={props => (
-                      <Dashboard {...props} mode={NEW} />
-                    )}
-                    />
-                        <Route
-                          exact
-                          path="/:dashboardId"
-                          render={props => (
-                            <Dashboard {...props} mode={VIEW} />
-                          )}
-                          />
-                              <Route
-                                exact
-                                path="/:dashboardId/edit"
-                                render={props => (
-                                  <Dashboard {...props} mode={EDIT} />
-                                )}
-                                />
-                                  </Switch>
-                                </Router>
-                              </div>
+            />
+            <Route
+              exact
+              path="/new"
+              render={props => (
+                <Dashboard {...props} mode={NEW} />
+              )}
+            />
+            <Route
+              exact
+              path="/:dashboardId"
+              render={props => (
+                <Dashboard {...props} mode={VIEW} />
+              )}
+            />
+            <Route
+              exact
+              path="/:dashboardId/edit"
+              render={props => (
+                <Dashboard {...props} mode={EDIT} />
+              )}
+            />
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }

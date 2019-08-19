@@ -49,19 +49,19 @@ export class EditDashboard extends Component {
 
     return (
       <div className="dashboard-wrapper">
-        {contentNotReady ? null : (
-          <Content updateAccess={this.props.updateAccess} />
-        )}
-        </div>
+      {contentNotReady ? null : (
+        <Content updateAccess={this.props.updateAccess} />
+      )}
+      </div>
     );
   };
 
   render() {
     return (
       <Fragment>
-        <EditBar />
-        <DashboardVerticalOffset editMode={true} />
-        {this.getDashboardContent()}
+      <EditBar />
+      <DashboardVerticalOffset editMode={true} />
+      {this.getDashboardContent()}
       </Fragment>
     );
   }

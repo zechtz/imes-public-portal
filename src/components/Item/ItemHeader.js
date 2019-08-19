@@ -9,11 +9,11 @@ const ItemHeader = props => {
   const { title } = props;
   return (
     <div className="dashboard-item-header">
-      <div
-        className="dashboard-item-header-title"
-        style={style}>
-        {title}
-      </div>
+    <div
+    className="dashboard-item-header-title"
+    style={style}>
+    {title}
+    </div>
     </div>
   );
 };

@@ -85,45 +85,45 @@ class ViewTitleBar extends Component {
 
     return (
       <Fragment>
-        <div className={classes.titleBar}>
-          <span style={titleStyle}>{name}</span>
-          <div className={classes.actions}>
-            <div className={classes.titleBarIcon}>
-              <Info onClick={onInfoClick} />
-            </div>
-            <div style={{ marginLeft: '10px' }}>
-                {access.manage ? (
-                  <span style={{ marginRight: '4px' }}>
-                  </span>
-                ) : null}
-                  <span style={{ marginRight: '4px' }}>
-                    <FilterSelector />
-                  </span>
-                </div>
-              </div>
-            </div>
-            {showDescription ? (
-              <div
-                className="dashboard-description"
-                style={Object.assign(
-                  { paddingTop: '5px', paddingBottom: '5px' },
-                  style.description,
-                  !description ? { color: '#888' } : {}
-                )}
-              >
-                  {description || NO_DESCRIPTION}
-              </div>
-            ) : null}
-              {id ? (
-                <SharingDialog
-                  d2={this.context.d2}
-                  id={id}
-                  type="dashboard"
-                  open={this.state.sharingDialogIsOpen}
-                  onRequestClose={this.toggleSharingDialog}
-                />
-              ) : null}
-                </Fragment>
+      <div className={classes.titleBar}>
+      <span style={titleStyle}>{name}</span>
+      <div className={classes.actions}>
+      <div className={classes.titleBarIcon}>
+      <Info onClick={onInfoClick} />
+      </div>
+      <div style={{ marginLeft: '10px' }}>
+      {access.manage ? (
+        <span style={{ marginRight: '4px' }}>
+        </span>
+      ) : null}
+      <span style={{ marginRight: '4px' }}>
+      <FilterSelector />
+      </span>
+      </div>
+      </div>
+      </div>
+      {showDescription ? (
+        <div
+        className="dashboard-description"
+        style={Object.assign(
+          { paddingTop: '5px', paddingBottom: '5px' },
+          style.description,
+          !description ? { color: '#888' } : {}
+        )}
+        >
+        {description || NO_DESCRIPTION}
+        </div>
+      ) : null}
+      {id ? (
+        <SharingDialog
+        d2={this.context.d2}
+        id={id}
+        type="dashboard"
+        open={this.state.sharingDialogIsOpen}
+        onRequestClose={this.toggleSharingDialog}
+        />
+      ) : null}
+      </Fragment>
     );
   }
 }

@@ -13,7 +13,7 @@ class Info extends Component {
   render() {
     return (
       <div onClick={() => this.props.onClick(this.toggle())}>
-        <InfoOutlineIcon style={{ fill: colors.muiDefaultGrey }} />
+      <InfoOutlineIcon style={{ fill: colors.muiDefaultGrey }} />
       </div>
     );
   }

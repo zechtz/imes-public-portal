@@ -68,36 +68,36 @@ export const EditTitleBar = ({
 
   return (
     <section className={classes.section}>
-      <div className={classes.titleDescription}>
-        <InputField
-          className={classes.title}
-          filled
-          name="Dashboard title input"
-          label={i18n.t('Dashboard title')}
-          type="text"
-          onChange={updateTitle}
-          value={name}
-        />
-            <MuiInputField
-              className={classes.description}
-              name="Dashboard description input"
-              label={i18n.t('Dashboard description')}
-              onChange={updateDescription}
-              value={description}
-              variant="filled"
-              multiline
-              InputProps={{
-                classes: {
-                  root: classes.input,
-                  underline: classes.underline,
-                },
-              }}
-            />
-              </div>
-              <div className={classes.itemSelector}>
-                <ItemSelector />
-              </div>
-            </section>
+    <div className={classes.titleDescription}>
+    <InputField
+    className={classes.title}
+    filled
+    name="Dashboard title input"
+    label={i18n.t('Dashboard title')}
+    type="text"
+    onChange={updateTitle}
+    value={name}
+    />
+    <MuiInputField
+    className={classes.description}
+    name="Dashboard description input"
+    label={i18n.t('Dashboard description')}
+    onChange={updateDescription}
+    value={description}
+    variant="filled"
+    multiline
+    InputProps={{
+      classes: {
+        root: classes.input,
+          underline: classes.underline,
+      },
+    }}
+    />
+    </div>
+    <div className={classes.itemSelector}>
+    <ItemSelector />
+    </div>
+    </section>
   );
 };
 

@@ -7,9 +7,9 @@ const Header = ({ appName }) => {
   console.log('MuunganoHeader-Rendered');
   return (
     <BrowserRouter>
-      <div className="imes-header-component">
-        <Link to="/"><h4>{appName}</h4></Link>
-      </div>
+    <div className="imes-header-component">
+    <Link to="/"><h4>{appName}</h4></Link>
+    </div>
     </BrowserRouter>
   )
 }
