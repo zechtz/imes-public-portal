@@ -8,10 +8,10 @@ const memoizeOne = fn => {
 
   return (...args) => {
     if (
-    lastArgs &&
+      lastArgs &&
       args.length === lastArgs.length &&
       args.every((arg, i) => arg === lastArgs[i])
-  ) {
+    ) {
       return lastValue;
     }
     lastArgs = args;

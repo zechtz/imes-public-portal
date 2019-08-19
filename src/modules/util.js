@@ -55,24 +55,24 @@ export const formatDate = (value, uiLocale) => {
 };
 
 /**
- * Sorts an array of objects based on provided date property
- *
- * @param {Array} items Array of objects
- * @param {String} dateProp Name of the date property to be used for sorting
- * @param {Boolean} ascending Whether to sort ascending or descending
- */
-export const sortByDate = (items, dateProp, ascending = true) => {
-  const values = Object.values(items);
+  * Sorts an array of objects based on provided date property
+  *
+  * @param {Array} items Array of objects
+  * @param {String} dateProp Name of the date property to be used for sorting
+  * @param {Boolean} ascending Whether to sort ascending or descending
+  */
+  export const sortByDate = (items, dateProp, ascending = true) => {
+    const values = Object.values(items);
 
-  values.sort((a, b) => {
-    const aDate = new Date(a[dateProp]);
-    const bDate = new Date(b[dateProp]);
+    values.sort((a, b) => {
+      const aDate = new Date(a[dateProp]);
+      const bDate = new Date(b[dateProp]);
 
-    return ascending ? aDate - bDate : bDate - aDate;
-  });
+      return ascending ? aDate - bDate : bDate - aDate;
+    });
 
-  return values;
-};
+    return values;
+  };
 
 // reducer validator
 export const validateReducer = (value, defaultValue) =>

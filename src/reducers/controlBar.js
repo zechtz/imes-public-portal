@@ -1,5 +1,5 @@
 /** @module reducers/controlBar */
-import { combineReducers } from 'redux';
+  import { combineReducers } from 'redux';
 import { validateReducer } from '../modules/util';
 
 export const SET_CONTROLBAR_USER_ROWS = 'SET_CONTROLBAR_USER_ROWS';
@@ -19,12 +19,12 @@ export default combineReducers({
 });
 
 /**
- * Selectors that point to specific props in the state object
- * @function
- * @param {Object} state
- * @returns {Object}
- */
-export const sGetControlBarRoot = state => state.controlBar;
+  * Selectors that point to specific props in the state object
+  * @function
+  * @param {Object} state
+  * @returns {Object}
+  */
+  export const sGetControlBarRoot = state => state.controlBar;
 
 // Selector dependency level 2
 
