@@ -10,3 +10,11 @@
   font-weight: bold;
   font-size: 2em;
 }
+
+.imes-header-component a {
+  text-decoration: none;
+}
+
+.imes-header-component a:hover {
+  text-decoration: underline;
+}
