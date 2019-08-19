@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 import { validateReducer } from '../modules/util';
 
 export const SET_CONTROLBAR_USER_ROWS = 'SET_CONTROLBAR_USER_ROWS';
-
 export const DEFAULT_STATE_CONTROLBAR_ROWS = 1;
 
 const userRows = (state = DEFAULT_STATE_CONTROLBAR_ROWS, action) => {

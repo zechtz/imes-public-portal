@@ -3,12 +3,14 @@ import arraySort from 'd2-utilizr/lib/arraySort';
 
 import dashboards, { sGetDashboardsRoot } from './dashboards';
 import selected from './selected';
+
 import dashboardsFilter, {
   ownerData,
   sGetFilterName,
   sGetFilterOrder,
   sGetFilterOwner,
 } from './dashboardsFilter';
+
 import controlBar from './controlBar';
 import visualizations from './visualizations';
 import editDashboard from './editDashboard';
@@ -25,7 +27,6 @@ import activeModalDimension from './activeModalDimension';
 const USER = 'system';
 
 // Reducers
-
 export default combineReducers({
   dashboards,
   selected,
@@ -89,9 +90,9 @@ export const sFilterDashboardsByOrder = (dashboards, filter) => {
 
 // Get filtered dashboards
 export const sGetFilteredDashboards = state => {
-  const dashboards = sGetDashboardsRoot(state);
 
-  const nameFilter = sGetFilterName(state);
+  const dashboards  = sGetDashboardsRoot(state);
+  const nameFilter  = sGetFilterName(state);
   const ownerFilter = sGetFilterOwner(state);
   const orderFilter = sGetFilterOrder(state);
 
