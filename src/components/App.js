@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import i18n from '@dhis2/d2-i18n';
 
-import { EDIT, VIEW, NEW }    from './Dashboard/dashboardModes';
+import { VIEW }    from './Dashboard/dashboardModes';
 import { acReceivedUser }     from '../actions/user';
 import { tFetchDashboards }   from '../actions/dashboards';
 import { tSetControlBarRows } from '../actions/controlBar';
@@ -40,34 +40,8 @@ export class App extends Component {
         </div>
         <Router>
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={props => (
-                <Dashboard {...props} mode={VIEW} />
-              )}
-            />
-            <Route
-              exact
-              path="/new"
-              render={props => (
-                <Dashboard {...props} mode={NEW} />
-              )}
-            />
-            <Route
-              exact
-              path="/:dashboardId"
-              render={props => (
-                <Dashboard {...props} mode={VIEW} />
-              )}
-            />
-            <Route
-              exact
-              path="/:dashboardId/edit"
-              render={props => (
-                <Dashboard {...props} mode={EDIT} />
-              )}
-            />
+            <Route exact path="/" render={props => ( <Dashboard {...props} mode={VIEW} />)} />
+            <Route exact path="/:dashboardId" render={props => ( <Dashboard {...props} mode={VIEW} />)} />
           </Switch>
         </Router>
       </div>

@@ -16,5 +16,5 @@
 }
 
 .imes-header-component a:hover {
-  text-decoration: underline;
+  color: red;
 }
