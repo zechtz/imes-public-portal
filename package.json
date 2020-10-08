@@ -80,12 +80,7 @@
     "eslintConfig": {
         "extends": "react-app"
     },
-    "browserslist": [
-        ">0.2%",
-        "not dead",
-        "not ie <= 11",
-        "not op_mini all"
-    ],
+    "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"],
     "devDependencies": {
         "@dhis2/d2-i18n-extract": "^1.0.7",
         "@dhis2/d2-i18n-generate": "^1.1.0",
