@@ -90,34 +90,34 @@ export class DashboardsBar extends Component {
 
     return (
       <ControlBar
-        height={controlBarHeight}
-        onChangeHeight={this.onChangeHeight}
-        onEndDrag={this.onEndDrag}
-        editMode={false}
+      height={controlBarHeight}
+      onChangeHeight={this.onChangeHeight}
+      onEndDrag={this.onEndDrag}
+      editMode={false}
       >
-        <div style={contentWrapperStyle}>
-          <div className={classes.leftControls}>
-            <Filter
-              name={name}
-              onChangeName={onChangeFilterName}
-              onKeypressEnter={this.onSelectDashboard}
-            />
-          </div>
-          {orArray(dashboards).map(dashboard => (
-            <Chip
-              key={dashboard.id}
-              label={dashboard.displayName}
-              starred={dashboard.starred}
-              dashboardId={dashboard.id}
-              selected={dashboard.id === selectedId}
-            />
-          ))}
-        </div>
-        <ShowMoreButton
-          onClick={this.onToggleMaxHeight}
-          isMaxHeight={this.state.isMaxHeight}
-          disabled={this.props.userRows === MAX_ROW_COUNT}
+      <div style={contentWrapperStyle}>
+      <div className={classes.leftControls}>
+      <Filter
+      name={name}
+      onChangeName={onChangeFilterName}
+      onKeypressEnter={this.onSelectDashboard}
+      />
+      </div>
+      {orArray(dashboards).map(dashboard => (
+        <Chip
+        key={dashboard.id}
+        label={dashboard.displayName}
+        starred={dashboard.starred}
+        dashboardId={dashboard.id}
+        selected={dashboard.id === selectedId}
         />
+      ))}
+      </div>
+      <ShowMoreButton
+      onClick={this.onToggleMaxHeight}
+      isMaxHeight={this.state.isMaxHeight}
+      disabled={this.props.userRows === MAX_ROW_COUNT}
+      />
       </ControlBar>
     );
   }

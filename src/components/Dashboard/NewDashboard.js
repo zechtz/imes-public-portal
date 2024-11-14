@@ -7,26 +7,26 @@ import EditBar from '../ControlBar/EditBar';
 import DashboardContent from './DashboardContent';
 
 class NewDashboard extends Component {
-    componentDidMount() {
-        this.props.setNewDashboard();
-    }
+  componentDidMount() {
+    this.props.setNewDashboard();
+  }
 
-    render() {
-        return (
-            <Fragment>
-                <EditBar />
-                <DashboardVerticalOffset editMode={true} />
-                <div className="dashboard-wrapper">
-                    <DashboardContent editMode={true} />
-                </div>
-            </Fragment>
-        );
-    }
+  render() {
+    return (
+      <Fragment>
+      <EditBar />
+      <DashboardVerticalOffset editMode={true} />
+      <div className="dashboard-wrapper">
+      <DashboardContent editMode={true} />
+      </div>
+      </Fragment>
+    );
+  }
 }
 
 export default connect(
-    null,
-    {
-        setNewDashboard: acSetEditNewDashboard,
-    }
+  null,
+  {
+    setNewDashboard: acSetEditNewDashboard,
+  }
 )(NewDashboard);

@@ -6,73 +6,73 @@ const defaultDebounceMs = 100;
 const defaultBufferFactor = 0.25;
 
 class ProgressiveLoadingContainer extends Component {
-    static propTypes = {
-        children: PropTypes.node.isRequired,
-        debounceMs: PropTypes.number,
-        bufferFactor: PropTypes.number,
-    };
-    static defaultProps = {
-        debounceMs: defaultDebounceMs,
-        bufferFactor: defaultBufferFactor,
-    };
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    debounceMs: PropTypes.number,
+    bufferFactor: PropTypes.number,
+  };
+  static defaultProps = {
+    debounceMs: defaultDebounceMs,
+    bufferFactor: defaultBufferFactor,
+  };
 
-    state = {
-        shouldLoad: false,
-    };
-    containerRef = null;
-    shouldLoadHandler = null;
+  state = {
+    shouldLoad: false,
+  };
+  containerRef = null;
+  shouldLoadHandler = null;
 
-    checkShouldLoad() {
-        const bufferPx = this.props.bufferFactor * window.innerHeight;
+  checkShouldLoad() {
+    const bufferPx = this.props.bufferFactor * window.innerHeight;
 
-        if (!this.containerRef) {
-            return;
-        }
-
-        const rect = this.containerRef.getBoundingClientRect();
-        if (
-            rect.bottom > -bufferPx &&
-            rect.top < window.innerHeight + bufferPx
-        ) {
-            this.setState({
-                shouldLoad: true,
-            });
-
-            this.removeHandler();
-        }
+    if (!this.containerRef) {
+      return;
     }
 
-    registerHandler() {
-        this.shouldLoadHandler = debounce(
-            () => this.checkShouldLoad(),
-            this.props.debounceMs
-        );
+    const rect = this.containerRef.getBoundingClientRect();
+    if (
+      rect.bottom > -bufferPx &&
+      rect.top < window.innerHeight + bufferPx
+    ) {
+      this.setState({
+        shouldLoad: true,
+      });
 
-        window.addEventListener('scroll', this.shouldLoadHandler);
+      this.removeHandler();
     }
-    removeHandler() {
-        window.removeEventListener('scroll', this.shouldLoadHandler);
-    }
+  }
 
-    componentDidMount() {
-        this.registerHandler();
-        this.checkShouldLoad();
-    }
+  registerHandler() {
+    this.shouldLoadHandler = debounce(
+      () => this.checkShouldLoad(),
+      this.props.debounceMs
+    );
 
-    componentWillUnmount() {
-        this.removeHandler();
-    }
+    window.addEventListener('scroll', this.shouldLoadHandler);
+  }
+  removeHandler() {
+    window.removeEventListener('scroll', this.shouldLoadHandler);
+  }
 
-    render() {
-        const { children, debounceMs, bufferFactor, ...props } = this.props;
-        const { shouldLoad } = this.state;
+  componentDidMount() {
+    this.registerHandler();
+    this.checkShouldLoad();
+  }
 
-        return (
-            <div ref={ref => (this.containerRef = ref)} {...props}>
-                {shouldLoad && children}
-            </div>
-        );
-    }
+  componentWillUnmount() {
+    this.removeHandler();
+  }
+
+  render() {
+    const { children, debounceMs, bufferFactor, ...props } = this.props;
+    const { shouldLoad } = this.state;
+
+    return (
+      <div ref={ref => (this.containerRef = ref)} {...props}>
+      {shouldLoad && children}
+      </div>
+    );
+  }
 }
 
 export default ProgressiveLoadingContainer;

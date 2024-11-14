@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import PropTypes from 'prop-types';
+  import PropTypes from 'prop-types';
 
 const { bool, string, oneOf, oneOfType } = PropTypes;
 

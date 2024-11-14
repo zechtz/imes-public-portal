@@ -22,17 +22,17 @@ const style = {
 const TitleBar = ({ edit }) => {
   return (
     <div
-      className="titlebar-wrapper"
-      style={{
-        padding: '20px 15px 5px 10px',
-      }}
+    className="titlebar-wrapper"
+    style={{
+      padding: '20px 15px 5px 10px',
+    }}
     >
-        {edit ? (
-          <ViewTitleBar style={style} />
-        ) : (
-          <ViewTitleBar style={style} />
-        )}
-        </div>
+    {edit ? (
+      <ViewTitleBar style={style} />
+    ) : (
+      <ViewTitleBar style={style} />
+    )}
+    </div>
   );
 };
 

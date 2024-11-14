@@ -117,27 +117,27 @@ export class EditBar extends Component {
   confirmDeleteDialog = () =>
     this.props.deleteAccess && this.props.dashboardId ? (
       <ConfirmDeleteDialog
-        dashboardName={this.props.dashboardName}
-        onDeleteConfirmed={this.onDeleteConfirmed}
-        onContinueEditing={this.onContinueEditing}
-        open={this.state.confirmDeleteDialogOpen}
+      dashboardName={this.props.dashboardName}
+      onDeleteConfirmed={this.onDeleteConfirmed}
+      onContinueEditing={this.onContinueEditing}
+      open={this.state.confirmDeleteDialogOpen}
       />
     ) : null;
 
   translationDialog = () =>
     this.state.dashboardModel && this.state.dashboardModel.id ? (
       <TranslationDialog
-        className="translation-dialog"
-        d2={this.context.d2}
-        open={this.state.translationDialogIsOpen}
-        onRequestClose={this.toggleTranslationDialog}
-        objectToTranslate={this.state.dashboardModel}
-        fieldsToTranslate={['name', 'description']}
-        // TODO handle messages in snackbar
-        onTranslationSaved={this.onTranslationsSaved}
-        onTranslationError={err =>
-            console.log('translation update error', err)
-        }
+      className="translation-dialog"
+      d2={this.context.d2}
+      open={this.state.translationDialogIsOpen}
+      onRequestClose={this.toggleTranslationDialog}
+      objectToTranslate={this.state.dashboardModel}
+      fieldsToTranslate={['name', 'description']}
+      // TODO handle messages in snackbar
+      onTranslationSaved={this.onTranslationsSaved}
+      onTranslationError={err =>
+        console.log('translation update error', err)
+      }
       />
     ) : null;
 
@@ -155,45 +155,45 @@ export class EditBar extends Component {
 
     return (
       <Fragment>
-        <ControlBar height={controlBarHeight} editMode={false}>
-          <div style={buttonBarStyle}>
-            {updateAccess ? (
-              <div className={classes.leftControls}>
-                <span style={{ marginRight: '15px' }}>
-                  <Button primary onClick={this.onSave}>
-                    {i18n.t('Save changes')}
-                  </Button>
-                </span>
+      <ControlBar height={controlBarHeight} editMode={false}>
+      <div style={buttonBarStyle}>
+      {updateAccess ? (
+        <div className={classes.leftControls}>
+        <span style={{ marginRight: '15px' }}>
+        <Button primary onClick={this.onSave}>
+        {i18n.t('Save changes')}
+        </Button>
+        </span>
 
-                {dashboardId ? (
-                  <span style={{ marginRight: '15px' }}>
-                    <Button
-                      onClick={
-                        this.toggleTranslationDialog
-                      }
-                    >
-                        {i18n.t('Translate')}
-                    </Button>
-                  </span>
-                ) : null}
-                  {dashboardId && deleteAccess ? (
-                    <Button onClick={this.onConfirmDelete}>
-                      {i18n.t('Delete')}
-                    </Button>
-                  ) : null}
-                  </div>
-            ) : null}
+        {dashboardId ? (
+          <span style={{ marginRight: '15px' }}>
+          <Button
+          onClick={
+            this.toggleTranslationDialog
+          }
+          >
+          {i18n.t('Translate')}
+          </Button>
+          </span>
+        ) : null}
+        {dashboardId && deleteAccess ? (
+          <Button onClick={this.onConfirmDelete}>
+          {i18n.t('Delete')}
+          </Button>
+        ) : null}
+        </div>
+      ) : null}
 
-                  <div className={classes.rightControls}>
-                    <Button secondary onClick={this.onDiscard}>
-                      {discardBtnText}
-                    </Button>
-                  </div>
-                </div>
-              </ControlBar>
-              {this.translationDialog()}
-              {this.confirmDeleteDialog()}
-            </Fragment>
+      <div className={classes.rightControls}>
+      <Button secondary onClick={this.onDiscard}>
+      {discardBtnText}
+      </Button>
+      </div>
+      </div>
+      </ControlBar>
+      {this.translationDialog()}
+      {this.confirmDeleteDialog()}
+      </Fragment>
     );
   }
 }

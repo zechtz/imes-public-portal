@@ -1,13 +1,13 @@
 import {
-    RECEIVED_SNACKBAR_MESSAGE,
-    CLOSE_SNACKBAR,
+  RECEIVED_SNACKBAR_MESSAGE,
+  CLOSE_SNACKBAR,
 } from '../reducers/snackbar';
 
 export const acReceivedSnackbarMessage = value => ({
-    type: RECEIVED_SNACKBAR_MESSAGE,
-    value,
+  type: RECEIVED_SNACKBAR_MESSAGE,
+  value,
 });
 
 export const acCloseSnackbar = () => ({
-    type: CLOSE_SNACKBAR,
+  type: CLOSE_SNACKBAR,
 });

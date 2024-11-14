@@ -3,7 +3,7 @@ import objectClean from 'd2-utilizr/lib/objectClean';
 
 /** @module reducers/visualizations */
 
-export const RECEIVED_VISUALIZATION = 'RECEIVED_VISUALIZATION';
+  export const RECEIVED_VISUALIZATION = 'RECEIVED_VISUALIZATION';
 export const RECEIVED_ACTIVE_VISUALIZATION = 'RECEIVED_ACTIVE_VISUALIZATION';
 
 export const DEFAULT_STATE_VISUALIZATIONS = {};

@@ -1,5 +1,5 @@
 /** @module reducers/editDashboard */
-import update from 'immutability-helper';
+  import update from 'immutability-helper';
 import isEmpty from 'lodash/isEmpty';
 import { orArray, orObject } from '../modules/util';
 
@@ -110,8 +110,8 @@ export const sGetIsEditing = state => !isEmpty(state.editDashboard);
 
 export const sGetIsNewDashboard = state => {
   return (
-  !isEmpty(state.editDashboard) && sGetEditDashboardRoot(state).id === ''
-);
+    !isEmpty(state.editDashboard) && sGetEditDashboardRoot(state).id === ''
+  );
 };
 
 export const sGetEditDashboardItems = state =>

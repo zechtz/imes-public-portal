@@ -1,5 +1,5 @@
 /** @module reducers/selected */
-import { combineReducers } from 'redux';
+  import { combineReducers } from 'redux';
 
 import { validateReducer } from '../modules/util';
 
@@ -12,19 +12,19 @@ export const DEFAULT_STATE_SELECTED_ISLOADING = false;
 export const DEFAULT_STATE_SELECTED_SHOWDESCRIPTION = false;
 
 /**
- * Reducer functions that computes and returns the new state based on the given action
- * @function
- * @param {Object} state The current state
- * @param {Object} action The action to be evaluated
- */
-const id = (state = DEFAULT_STATE_SELECTED_ID, action) => {
-  switch (action.type) {
-    case SET_SELECTED_ID:
-      return validateReducer(action.value, DEFAULT_STATE_SELECTED_ID);
-    default:
-      return state;
-  }
-};
+  * Reducer functions that computes and returns the new state based on the given action
+  * @function
+  * @param {Object} state The current state
+  * @param {Object} action The action to be evaluated
+  */
+  const id = (state = DEFAULT_STATE_SELECTED_ID, action) => {
+    switch (action.type) {
+      case SET_SELECTED_ID:
+        return validateReducer(action.value, DEFAULT_STATE_SELECTED_ID);
+      default:
+        return state;
+    }
+  };
 
 const isLoading = (state = DEFAULT_STATE_SELECTED_ISLOADING, action) => {
   switch (action.type) {

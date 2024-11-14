@@ -125,7 +125,7 @@ export class Item extends Component {
     if (!visualization) {
       return (
         <div className={this.props.classes.textDiv}>
-          {i18n.t('No data to display')}
+        {i18n.t('No data to display')}
         </div>
       );
     }
@@ -140,13 +140,13 @@ export class Item extends Component {
       case CHART: {
         return (
           <ChartPlugin
-            d2={this.d2}
-            config={applyFilters(
-              props.visualization,
-              props.itemFilters
-            )}
-            forDashboard={true}
-            style={props.style}
+          d2={this.d2}
+          config={applyFilters(
+            props.visualization,
+            props.itemFilters
+          )}
+          forDashboard={true}
+          style={props.style}
           />
         );
       }
@@ -156,9 +156,9 @@ export class Item extends Component {
           // for maps AO
           const mapViews = props.visualization.mapViews.map(obj => {
             if (
-            obj.layer.includes('thematic') ||
+              obj.layer.includes('thematic') ||
               obj.layer.includes('event')
-          ) {
+            ) {
               return applyFilters(obj, props.itemFilters);
             }
 
@@ -229,9 +229,9 @@ export class Item extends Component {
 
     return (
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <span className={classes.title} title={itemName}>
-          {itemName}
-        </span>
+      <span className={classes.title} title={itemName}>
+      {itemName}
+      </span>
       </div>
     );
   };
@@ -242,11 +242,11 @@ export class Item extends Component {
       this.props.visualization
     ) && !this.props.editMode ? (
       <VisualizationItemHeaderButtons
-        item={this.props.item}
-        activeFooter={this.state.showFooter}
-        activeType={this.getActiveType()}
-        onSelectVisualization={this.onSelectVisualization}
-        onToggleFooter={this.onToggleFooter}
+      item={this.props.item}
+      activeFooter={this.state.showFooter}
+      activeType={this.getActiveType()}
+      onSelectVisualization={this.onSelectVisualization}
+      onToggleFooter={this.onToggleFooter}
       />
     ) : null;
 
@@ -267,18 +267,18 @@ export class Item extends Component {
 
     return (
       <Fragment>
-        <ItemHeader
-          title={this.getTitle()}
-          actionButtons={this.getActionButtons()}
-          editMode={editMode} />
-          <div
-            key={this.getUniqueKey(itemFilters)}
-            className="dashboard-item-content"
-            ref={ref => (this.contentRef = ref)} >
-            {this.state.configLoaded && this.getPluginComponent()}
-          </div>
-          {!editMode && showFooter ? <ItemFooter item={item} /> : null}
-        </Fragment>
+      <ItemHeader
+      title={this.getTitle()}
+      actionButtons={this.getActionButtons()}
+      editMode={editMode} />
+      <div
+      key={this.getUniqueKey(itemFilters)}
+      className="dashboard-item-content"
+      ref={ref => (this.contentRef = ref)} >
+      {this.state.configLoaded && this.getPluginComponent()}
+      </div>
+      {!editMode && showFooter ? <ItemFooter item={item} /> : null}
+      </Fragment>
     );
   }
 }

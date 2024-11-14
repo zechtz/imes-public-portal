@@ -31,46 +31,46 @@ const ListItem = (props, context) => {
   const getLink = contentItem => {
     const deleteButton = (
       <button
-        className={classes.deletebutton}
-        onClick={removeContent(
-          tRemoveListItemContent,
-          item,
-          contentItem
-        )}
+      className={classes.deletebutton}
+      onClick={removeContent(
+        tRemoveListItemContent,
+        item,
+        contentItem
+      )}
       >
-          <DeleteIcon className={classes.deleteicon} />
-        </button>
+      <DeleteIcon className={classes.deleteicon} />
+      </button>
     );
 
     return (
       <Fragment>
-        <a
-          className={classes.link}
-          style={{ color: colors.grey900 }}
-          href={getItemUrl(item.type, contentItem, context.d2)}
-        >
-            {contentItem.name}
-        </a>
-        {editMode ? deleteButton : null}
+      <a
+      className={classes.link}
+      style={{ color: colors.grey900 }}
+      href={getItemUrl(item.type, contentItem, context.d2)}
+      >
+      {contentItem.name}
+      </a>
+      {editMode ? deleteButton : null}
       </Fragment>
     );
   };
 
   return (
     <Fragment>
-      <ItemHeader title={getItemTitle(item)} />
-      <Line />
-      <div className="dashboard-item-content">
-        <ul className={classes.list}>
-          {contentItems.map(contentItem => (
-            <li className={classes.item} key={contentItem.id}>
-              <DescriptionIcon className={classes.itemicon} />
-              {getLink(contentItem)}
-            </li>
-          ))}
-          </ul>
-        </div>
-      </Fragment>
+    <ItemHeader title={getItemTitle(item)} />
+    <Line />
+    <div className="dashboard-item-content">
+    <ul className={classes.list}>
+    {contentItems.map(contentItem => (
+      <li className={classes.item} key={contentItem.id}>
+      <DescriptionIcon className={classes.itemicon} />
+      {getLink(contentItem)}
+      </li>
+    ))}
+    </ul>
+    </div>
+    </Fragment>
   );
 };
 

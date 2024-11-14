@@ -29,10 +29,10 @@ class ControlBar extends React.Component {
     const newHeight = event.clientY;
 
     if (
-    this.props.onChangeHeight &&
+      this.props.onChangeHeight &&
       newHeight !== this.props.height &&
       newHeight > 0
-  ) {
+    ) {
       requestAnimationFrame(() => {
         this.props.onChangeHeight(newHeight);
       });
@@ -52,9 +52,9 @@ class ControlBar extends React.Component {
   renderDragHandle() {
     return typeof this.props.onChangeHeight === 'function' ? (
       <div
-        className={classes.draghandle}
-        style={{ height: DRAG_HANDLE_HEIGHT }}
-        onMouseDown={this.onStartDrag}
+      className={classes.draghandle}
+      style={{ height: DRAG_HANDLE_HEIGHT }}
+      onMouseDown={this.onStartDrag}
       />
     ) : null;
   }
@@ -77,8 +77,8 @@ class ControlBar extends React.Component {
 
     return (
       <div style={rootStyle} className={classes.root}>
-        <div className={classes.content}>{this.props.children}</div>
-        {this.renderDragHandle()}
+      <div className={classes.content}>{this.props.children}</div>
+      {this.renderDragHandle()}
       </div>
     );
   }
@@ -86,34 +86,34 @@ class ControlBar extends React.Component {
 
 ControlBar.propTypes = {
   /**
-   * The height of the control bar in number of lines. Must be a positive integer.
-   */
+  * The height of the control bar in number of lines. Must be a positive integer.
+  */
   height: PropTypes.number.isRequired,
 
   /**
-   * If true, the background color of the control bar changes to indicate that edit mode is active.
-   */
+  * If true, the background color of the control bar changes to indicate that edit mode is active.
+  */
   editMode: PropTypes.bool.isRequired,
 
   /**
-   * Callback function that is called when the control bar is resized.
-   * The callback receives one argument: The new height in pixels.
-   *
-   * If no callback is specified the control bar will not have a drag handle.
-   */
+  * Callback function that is called when the control bar is resized.
+  * The callback receives one argument: The new height in pixels.
+  *
+  * If no callback is specified the control bar will not have a drag handle.
+  */
   onChangeHeight: PropTypes.func,
 
   /**
-   * Callback function that is called when the control bar is dropped after being dragged.
-   * The callback receives one argument: The new height in pixels.
-   *
-   * Ignored if no "onChangeHeight" function is provided.
-   */
+  * Callback function that is called when the control bar is dropped after being dragged.
+  * The callback receives one argument: The new height in pixels.
+  *
+  * Ignored if no "onChangeHeight" function is provided.
+  */
   onEndDrag: PropTypes.func,
 
   /**
-   * The contents of the control bar.
-   */
+  * The contents of the control bar.
+  */
   children: PropTypes.node.isRequired,
 };
 

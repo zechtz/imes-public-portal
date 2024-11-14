@@ -23,16 +23,16 @@ class ItemFooter extends Component {
 
     return (
       <div className="dashboard-item-footer">
-        <hr style={style.line} />
-        <div style={style.scrollContainer}>
-          <InterpretationsComponent
-            d2={this.context.d2}
-            item={this.props.item}
-            type={this.props.item.type.toLowerCase()}
-            id={objectId}
-            appName="dashboard" />
-          </div>
-        </div>
+      <hr style={style.line} />
+      <div style={style.scrollContainer}>
+      <InterpretationsComponent
+      d2={this.context.d2}
+      item={this.props.item}
+      type={this.props.item.type.toLowerCase()}
+      id={objectId}
+      appName="dashboard" />
+      </div>
+      </div>
     );
   }
 }

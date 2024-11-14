@@ -12,10 +12,10 @@ const getIframeSrc = (appDetails, item, itemFilters) => {
   let iframeSrc = `${appDetails.launchUrl}?dashboardItemId=${item.id}`;
 
   if (
-  itemFilters &&
+    itemFilters &&
     itemFilters[FILTER_ORG_UNIT] &&
     itemFilters[FILTER_ORG_UNIT].length
-) {
+  ) {
     const ouIds = itemFilters[FILTER_ORG_UNIT].map(
       ouPath => ouPath.split('/').slice(-1)[0]
     );
@@ -39,32 +39,32 @@ const AppItem = ({ item, itemFilters }, context) => {
 
   return appDetails && appDetails.name && appDetails.launchUrl ? (
     <Fragment>
-      <ItemHeader title={appDetails.name} />
-      <Line />
-      <iframe
-        title={appDetails.name}
-        src={getIframeSrc(appDetails, item, itemFilters)}
-        className="dashboard-item-content"
-        style={{ border: 'none' }}/>
-      </Fragment>
+    <ItemHeader title={appDetails.name} />
+    <Line />
+    <iframe
+    title={appDetails.name}
+    src={getIframeSrc(appDetails, item, itemFilters)}
+    className="dashboard-item-content"
+    style={{ border: 'none' }}/>
+    </Fragment>
   ) : (
     <Fragment>
-      <ItemHeader title={`${appKey} app not found`} />
-      <Line />
-      <div
-        className="dashboard-item-content"
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '90%',
-        }} >
-        <NotInterestedIcon
-          color="disabled"
-          disabled
-          style={{ width: 100, height: 100, align: 'center' }} />
-        </div>
-      </Fragment>
+    <ItemHeader title={`${appKey} app not found`} />
+    <Line />
+    <div
+    className="dashboard-item-content"
+    style={{
+      display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '90%',
+    }} >
+    <NotInterestedIcon
+    color="disabled"
+    disabled
+    style={{ width: 100, height: 100, align: 'center' }} />
+    </div>
+    </Fragment>
   );
 };
 

@@ -72,6 +72,6 @@ export const sGetDashboardsFilterRoot = state => state.dashboardsFilter;
 
 // selector dependency level 2
 
-export const sGetFilterName = state => sGetDashboardsFilterRoot(state).name;
+export const sGetFilterName  = state => sGetDashboardsFilterRoot(state).name;
 export const sGetFilterOwner = state => sGetDashboardsFilterRoot(state).owner;
 export const sGetFilterOrder = state => sGetDashboardsFilterRoot(state).order;

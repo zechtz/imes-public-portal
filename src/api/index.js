@@ -27,8 +27,8 @@ export const getDashboardItemsFields = ({ withFavorite } = {}) =>
     ? `${getFavoritesFields({
       withDimensions: withFavorite.withDimensions,
     }).join(',')}`
-        : ``,
-    ]);
+    : ``,
+  ]);
 
 // Dashboard
 export const getDashboardFields = ({ withItems, withFavorite } = {}) =>
@@ -45,5 +45,5 @@ export const getDashboardFields = ({ withItems, withFavorite } = {}) =>
     ? `dashboardItems[${getDashboardItemsFields({
       withFavorite,
     }).join(',')}]`
-        : ``,
-    ]);
+    : ``,
+  ]);
